@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { RpcException } from '@nestjs/microservices';
 
 export type User = any;
 
@@ -26,7 +27,11 @@ export class UsersService {
     ];
   }
 
-  async findOne(username: string): Promise<User | undefined> {
-    return this.users.find(user => user.username === username);
+  async findOne(username: string): Promise<User> {
+    const user = this.users.find(user => user.username === username);
+    if (!user) {
+      throw new RpcException('User not found');
+    }
+    return user;
   }
 }

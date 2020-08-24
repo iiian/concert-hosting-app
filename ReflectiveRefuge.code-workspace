@@ -4,9 +4,6 @@
       "path": "api-gateway-service"
     },
     {
-      "path": "auth-service"
-    },
-    {
       "path": "common"
     },
     {
@@ -20,6 +17,9 @@
     },
     {
       "path": "web-service"
+    },
+    {
+      "path": "user-service"
     }
   ]
 }

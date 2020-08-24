@@ -1,23 +1,27 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { ClientProxyFactory, ClientProxy, Transport } from '@nestjs/microservices';
+import { UsersService, User } from '../users/users.service';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
   private readonly logger = new Logger('AuthService');
-  private proxy: ClientProxy;
-  constructor() {
-    this.proxy = ClientProxyFactory.create({
-      transport: Transport.TCP,
-      options: {
-        host: '127.0.0.1',
-        port: 8877
-      }
-    });
+  constructor(
+    private userService: UsersService,
+    private jwtService: JwtService
+  ) {}
+
+  async validateUser(username: string, password: string): Promise<any> {
+    const user = await this.userService.findOne(username);
+    // @TODO: bcryptify
+    if (user && user.password === password) {
+      const { password, ...anonUser } = user;
+      return anonUser;
+    }
+    return null;
   }
 
-  login(body): Promise<any> {
-    return this.proxy
-      .send('login', { body })
-      .toPromise();
+  async login({ username, id }: User): Promise<any> {
+    const payload = { username, sub: id };
+    return { access_token: this.jwtService.sign(payload) };
   }
 }
