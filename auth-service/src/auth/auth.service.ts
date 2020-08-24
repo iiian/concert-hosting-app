@@ -1,15 +1,17 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { UsersService, User } from 'src/users/users.service';
 import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
+  private readonly logger = new Logger('AuthService');
   constructor(
     private userService: UsersService,
     private jwtService: JwtService
   ) {}
 
   async validateUser(username: string, password: string): Promise<any> {
+    this.logger.log(username, password);
     const user = await this.userService.findOne(username);
     // @TODO: bcryptify
     if (user.password === password) {

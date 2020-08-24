@@ -1,21 +1,23 @@
-import { Controller, UseGuards, Post, Request, Get } from '@nestjs/common';
+import { Controller, UseGuards, Logger } from '@nestjs/common';
+import { MessagePattern } from '@nestjs/microservices';
 import { LocalAuthGuard } from './auth/local-auth.guard';
 import { AuthService } from './auth/auth.service';
 import { JwtAuthGuard } from './auth/jwt-auth.guard';
-import { Logger } from '@nestjs/common';
 
-@Controller()
+@Controller('auth')
 export class AppController {
+  private logger: Logger = new Logger('AppController');
   constructor(private authService: AuthService) {}
 
   @UseGuards(LocalAuthGuard)
-  @Post('auth/login')
-  async login(@Request() req) {
+  @MessagePattern('login')
+  async login(req) {
+    this.logger.log(req);
     return await this.authService.login(req.user);
   }
 
   @UseGuards(JwtAuthGuard)
-  @Get('hello')
+  @MessagePattern('hello')
   sayHello() {
     return { msg: 'hello' };
   }

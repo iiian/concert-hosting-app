@@ -1,0 +1,25 @@
+{
+  "folders": [
+    {
+      "path": "api-gateway-service"
+    },
+    {
+      "path": "auth-service"
+    },
+    {
+      "path": "common"
+    },
+    {
+      "path": "content-service"
+    },
+    {
+      "path": "credit-service"
+    },
+    {
+      "path": "venue-service"
+    },
+    {
+      "path": "web-service"
+    }
+  ]
+}
