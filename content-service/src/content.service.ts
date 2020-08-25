@@ -11,6 +11,10 @@ export class ContentService {
     }]
   };
 
+  authorizations = {
+    ['0']: ['xyz987']
+  };
+
   findAllForVenueId(venueId: string): any[] {
     return this.content[venueId];
   }
@@ -19,5 +23,10 @@ export class ContentService {
     return Object.values(this.content)
       .flat()
       .find(content => id === content.id);
+  }
+
+  isContentAuthorizedForUser(userId: string, contentId: string) {
+    const userAuthorizations: string[] = this.authorizations[userId];
+    return userAuthorizations.includes(contentId);
   }
 }

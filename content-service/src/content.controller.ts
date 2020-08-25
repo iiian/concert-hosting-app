@@ -13,13 +13,12 @@ export class ContentController {
 
   @MessagePattern({ role: 'user', cmd: 'authorize-content'})
   authorizeContent({ userId, contentId }: { userId: string, contentId: string }) {
-    contentId
     const content = this.contentService.findById(contentId);
     return `"${content.name}" authorized for user-id ${userId}`;
   }
 
   @MessagePattern({ role: 'user', cmd: 'authorization-check' })
   isContentAuthorizedForUser(userId: string, contentId: string) {
-
+    return this.contentService.isContentAuthorizedForUser(userId, contentId);
   }
 }

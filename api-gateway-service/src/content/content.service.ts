@@ -18,4 +18,11 @@ export class ContentService {
       { userId, contentId }
     ).toPromise();
   }
+
+  authorizationCheck(userId: string, contentId: string) {
+    return this.proxy.send(
+      { role: 'user', cmd: 'authorization-check' },
+      { userId, contentId }
+    ).toPromise();
+  }
 }
