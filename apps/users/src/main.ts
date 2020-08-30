@@ -2,20 +2,22 @@ import { NestFactory } from '@nestjs/core';
 import { UsersModule } from './users.module';
 import { Logger } from '@nestjs/common';
 import { Transport } from '@nestjs/microservices';
+import { ConfigService } from '@nestjs/config';
 
-const logger = new Logger('UserServiceMain');
+const NAME = 'UsersService';
 
 async function bootstrap() {
-  logger.log('All ok for now...');
-  const app = await NestFactory.createMicroservice(UsersModule, {
+  const logger = new Logger(NAME);
+  const app = await NestFactory.create(UsersModule, { logger });
+  const configService = app.get<ConfigService>(ConfigService);
+  const host = configService.get('usersServiceHost');
+  const port = configService.get('usersServicePort');
+  app.connectMicroservice({
     transport: Transport.TCP,
-    options: {
-      host: '127.0.0.1',
-      port: 8877
-    }
-  });
-  await app.listen(() => {
-    logger.log('listening on port 8877');
+    options: { host, port },
+  })
+  await app.startAllMicroservices(() => {
+    logger.log(`${NAME} alive on ${host}:${port}`);
   });
 }
 

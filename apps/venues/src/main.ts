@@ -1,8 +1,24 @@
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
+import { VenuesModule } from './venues/venues.module';
+import { ConfigService } from '@nestjs/config';
+import { Logger } from '@nestjs/common';
+import { Transport } from '@nestjs/microservices';
+
+const NAME = 'VenuesService';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
-  await app.listen(3000);
+  const logger = new Logger(NAME);
+  const app = await NestFactory.create(VenuesModule, { logger });
+  const configService = app.get<ConfigService>(ConfigService);
+  const host = configService.get('venuesServiceHost');
+  const port = configService.get('venuesServicePort');
+  app.connectMicroservice({
+    transport: Transport.TCP,
+    options: { host, port },
+  })
+  await app.startAllMicroservices(() => {
+    logger.log(`${NAME} alive on ${host}:${port}`);
+  });
 }
+
 bootstrap();

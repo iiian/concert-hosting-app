@@ -8,7 +8,6 @@ export class PaymentsController {
   @Post()
   // TODO add Guard for being called by someone who has permissions to call it?
   onPaymentOccured(@Body() payment: any) {
-
   }
 }
 

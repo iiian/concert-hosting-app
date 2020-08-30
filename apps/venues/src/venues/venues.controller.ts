@@ -1,9 +1,9 @@
 import { Controller, Get, Param } from '@nestjs/common';
-import { VenuesService } from './venues/service/venues.service';
-import { Venue } from './venues/types/venue';
+import { VenuesService } from './service/venues.service';
+import { Venue } from './types/venue';
 
 @Controller('venues')
-export class AppController {
+export class VenuesController {
   constructor(private readonly venuesService: VenuesService) {}
 
   @Get()

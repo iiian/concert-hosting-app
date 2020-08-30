@@ -2,18 +2,23 @@ import { NestFactory } from '@nestjs/core';
 import { CreditModule } from './credit/credit.module';
 import { Transport } from '@nestjs/microservices';
 import { Logger } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 
-const logger: Logger = new Logger('CreditService');
+const NAME = 'CreditService';
 
-const host = '127.0.0.1';
-const port = 8880;
 async function bootstrap() {
-  const app = await NestFactory.createMicroservice(CreditModule, {
+  const logger = new Logger(NAME);
+  const app = await NestFactory.create(CreditModule, { logger });
+  const configService = app.get<ConfigService>(ConfigService);
+  const host = configService.get('creditServiceHost');
+  const port = configService.get('creditServicePort');
+  app.connectMicroservice({
     transport: Transport.TCP,
-    options: { host, port }
-  });
-  await app.listen(() => {
-    logger.log(`CreditService@${host}:${port}`);
+    options: { host, port },
+  })
+  await app.startAllMicroservices(() => {
+    logger.log(`${NAME} alive on ${host}:${port}`);
   });
 }
+
 bootstrap();
