@@ -5,16 +5,15 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "Debug w NPM",
       "type": "node",
       "request": "launch",
-      "name": "Launch Program",
-      "skipFiles": [
-        "<node_internals>/**"
+      "cwd": "${workspaceRoot}",
+      "runtimeExecutable": "yarn",
+      "runtimeArgs": [
+          "start:debug"
       ],
-      "program": "${file}",
-      "outFiles": [
-        "${workspaceFolder}/**/*.js"
-      ]
+      "port": 5858
     }
   ]
 }
