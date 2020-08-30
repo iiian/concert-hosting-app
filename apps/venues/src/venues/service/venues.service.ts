@@ -10,8 +10,8 @@ export class VenuesService implements IVenuesService {
     this.venues = {
       ['abcdef01234']: new Venue(
         'The Independent',
-        new VenueLocation('San Francisco', 'CA', '94117', '628 Divisadero St')
-      )
+        new VenueLocation('San Francisco', 'CA', '94117', '628 Divisadero St'),
+      ),
     };
   }
 
@@ -20,12 +20,9 @@ export class VenuesService implements IVenuesService {
   }
 
   async findAll(): Promise<Partial<Venue>[]> {
-    return Object.entries(this.venues)
-      .map(
-        entry => ({ 
-          id: entry[0],
-          name: entry[1].name
-        })
-      );
+    return Object.entries(this.venues).map(entry => ({
+      id: entry[0],
+      name: entry[1].name,
+    }));
   }
 }

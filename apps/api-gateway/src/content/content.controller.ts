@@ -1,29 +1,38 @@
-import { Controller, Post, UseGuards, Param, Get } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  UseGuards,
+  Param,
+  Get,
+  Logger,
+} from '@nestjs/common';
 import { JwtAuthGuard } from '@rr/auth';
 import { ContentService } from './content.service';
+import { USERS_ROUTE } from '../../route.constants';
 
 const UID = 'uid';
 const CID = 'cid';
 
-@Controller('users')
+@Controller(USERS_ROUTE)
 export class ContentController {
+  private logger = new Logger('ContentController');
   constructor(private readonly contentService: ContentService) {}
-  
+
   @Post(`:${UID}/content`)
   @UseGuards(JwtAuthGuard)
   authorizeContent(
     @Param(UID) userId: string,
     // needs to be 'contentId' because it's not pulled from the body, not the URI.
-    @Param('contentId') contentId: string
+    @Param('contentId') contentId: string,
   ) {
     return this.contentService.authorizeContent(userId, contentId);
   }
 
-  @Get(`:${UID}/content/${CID}`)
+  @Get(`:${UID}/content/:${CID}`)
   @UseGuards(JwtAuthGuard)
   getContent(
     @Param(UID) userId: string,
-    @Param(CID) contentReferenceId: string
+    @Param(CID) contentReferenceId: string,
   ) {
     return this.contentService.getContent(userId, contentReferenceId);
   }

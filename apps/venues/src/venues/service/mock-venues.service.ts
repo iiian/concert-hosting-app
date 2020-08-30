@@ -9,8 +9,8 @@ export class MockVenuesService implements IVenuesService {
     this.venues = {
       ['0']: new Venue(
         'The Independent',
-        new VenueLocation('San Francisco', 'CA', '94117', '628 Divisadero St')
-      )
+        new VenueLocation('San Francisco', 'CA', '94117', '628 Divisadero St'),
+      ),
     };
   }
 
@@ -21,5 +21,4 @@ export class MockVenuesService implements IVenuesService {
   async findAll(): Promise<Venue[]> {
     return Object.values(this.venues);
   }
-
 }

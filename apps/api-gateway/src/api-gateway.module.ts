@@ -5,7 +5,9 @@ import { VenuesModule } from './venues/venues.module';
 import { VenuesController } from './venues/venues.controller';
 import { PaymentsModule } from './payments/payments.module';
 import { PaymentsController } from './payments/payments.controller';
-import { SubscriptionController } from "./payments/subscription.controller";
+import { SubscriptionController } from './payments/subscription.controller';
+import { ContentController } from './content/content.controller';
+import { ContentModule } from './content/content.module';
 
 @Module({
   imports: [
@@ -13,11 +15,14 @@ import { SubscriptionController } from "./payments/subscription.controller";
     AuthModule,
     VenuesModule,
     PaymentsModule,
+    ContentModule,
   ],
   controllers: [
     AuthController,
     VenuesController,
     PaymentsController,
     SubscriptionController,
+    ContentController,
   ],
-}) export class ApiGatewayModule {}
+})
+export class ApiGatewayModule {}

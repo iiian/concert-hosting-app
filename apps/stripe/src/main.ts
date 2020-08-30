@@ -15,7 +15,7 @@ async function bootstrap() {
   app.connectMicroservice({
     transport: Transport.TCP,
     options: { host, port },
-  })
+  });
   await app.startAllMicroservices(() => {
     logger.log(`${NAME} alive on ${host}:${port}`);
   });

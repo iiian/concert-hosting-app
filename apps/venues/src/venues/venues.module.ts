@@ -6,6 +6,6 @@ import { VenuesController } from 'apps/api-gateway/src/venues/venues.controller'
 @Module({
   imports: [ConfigModule.forRoot()],
   providers: [VenuesService],
-  controllers: [VenuesController]
+  controllers: [VenuesController],
 })
 export class VenuesModule {}

@@ -1,10 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { RpcException } from '@nestjs/microservices';
 
 export type User = any;
 
 @Injectable()
 export class UsersService {
+  private logger = new Logger('UsersService ms');
   private readonly users: User[];
 
   constructor() {
@@ -32,6 +33,7 @@ export class UsersService {
     if (!user) {
       throw new RpcException('User not found');
     }
+    this.logger.log(user);
     return user;
   }
 }

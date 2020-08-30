@@ -4,15 +4,22 @@ import { Injectable } from '@nestjs/common';
 @Injectable()
 export class ContentService {
   content = {
-    ['abcdef1234']: [{
-      id: 'xyz987',
-      cost: 1,
-      name: 'Big Boi, Live @ The Independent 09/16/20'
-    }]
+    ['abcdef1234']: [
+      {
+        id: 'xyz987',
+        cost: 1,
+        name: 'Big Boi, Live @ The Independent 09/16/20',
+      },
+      {
+        id: 'nth345',
+        cost: 1,
+        name: 'Paul "Roald Dahl" Wall reads James and the Giant Peach',
+      },
+    ],
   };
 
   authorizations = {
-    ['0']: ['xyz987']
+    ['0']: ['xyz987', 'nth345'],
   };
 
   findAllForVenueId(venueId: string): any[] {

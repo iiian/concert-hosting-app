@@ -36,13 +36,11 @@
 //   }
 
 //   public static async getJwtModuleAsync(configService: ConfigService): Promise<DynamicModule> {
-//     const jwtOptions = await ReflectiveAuthModule._jwtModuleOptions$.toPromise(); 
+//     const jwtOptions = await ReflectiveAuthModule._jwtModuleOptions$.toPromise();
 //     console.log(jwtOptions);
 //     return JwtModule.register(jwtOptions);
 //   }
 // }
-
-
 
 import { Module } from '@nestjs/common';
 import { PassportModule } from '@nestjs/passport';
@@ -65,17 +63,27 @@ import { UsersModule } from '../users/users.module';
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: async (configService: ConfigService) => {
-        return ({
+        return {
           secret: configService.get<string>('authJwtModuleOptions.secret'),
           signOptions: {
-            expiresIn: configService.get<string>('authJwtModuleOptions.signOptions.expiresIn')
-          }
-        });
-      }
+            expiresIn: configService.get<string>(
+              'authJwtModuleOptions.signOptions.expiresIn',
+            ),
+          },
+        };
+      },
     }),
-    ConfigModule
+    ConfigModule,
   ],
-  providers: [AuthService, UsersService, JwtStrategy, JwtAuthGuard, LocalStrategy, LocalAuthGuard],
+  providers: [
+    AuthService,
+    UsersService,
+    JwtStrategy,
+    JwtAuthGuard,
+    LocalStrategy,
+    LocalAuthGuard,
+  ],
   controllers: [AuthController],
-  exports: [AuthService]
-}) export class AuthModule {}
+  exports: [AuthService],
+})
+export class AuthModule {}

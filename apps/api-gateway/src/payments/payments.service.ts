@@ -1,6 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { ClientProxy, ClientProxyFactory, Transport } from '@nestjs/microservices';
+import {
+  ClientProxy,
+  ClientProxyFactory,
+  Transport,
+} from '@nestjs/microservices';
 
 @Injectable()
 export class PaymentsService {
@@ -10,8 +14,8 @@ export class PaymentsService {
       transport: Transport.TCP,
       options: {
         host: configService.get('paymentsServiceHost'),
-        port: configService.get('paymentsServicePort')
-      }
-    })
+        port: configService.get('paymentsServicePort'),
+      },
+    });
   }
 }
