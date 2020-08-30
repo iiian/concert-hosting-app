@@ -1,0 +1,93 @@
+{
+  "collection": "@nestjs/schematics",
+  "sourceRoot": "apps/reflective/src",
+  "monorepo": true,
+  "root": "apps/reflective",
+  "compilerOptions": {
+    "webpack": true,
+    "tsConfigPath": "apps/reflective/tsconfig.app.json"
+  },
+  "projects": {
+    "reflective": {
+      "type": "application",
+      "root": "apps/reflective",
+      "entryFile": "main",
+      "sourceRoot": "apps/reflective/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/reflective/tsconfig.app.json"
+      }
+    },
+    "api-gateway": {
+      "type": "application",
+      "root": "apps/api-gateway",
+      "entryFile": "main",
+      "sourceRoot": "apps/api-gateway/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/api-gateway/tsconfig.app.json"
+      }
+    },
+    "payments": {
+      "type": "application",
+      "root": "apps/payments",
+      "entryFile": "main",
+      "sourceRoot": "apps/payments/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/payments/tsconfig.app.json"
+      }
+    },
+    "user": {
+      "type": "application",
+      "root": "apps/user",
+      "entryFile": "main",
+      "sourceRoot": "apps/user/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/user/tsconfig.app.json"
+      }
+    },
+    "content": {
+      "type": "application",
+      "root": "apps/venue/content",
+      "entryFile": "main",
+      "sourceRoot": "apps/venue/content/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/venue/content/tsconfig.app.json"
+      }
+    },
+    "venue": {
+      "type": "application",
+      "root": "apps/venue",
+      "entryFile": "main",
+      "sourceRoot": "apps/venue/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/venue/tsconfig.app.json"
+      }
+    },
+    "auth": {
+      "type": "library",
+      "root": "libs/auth",
+      "entryFile": "index",
+      "sourceRoot": "libs/auth/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/auth/tsconfig.lib.json"
+      }
+    },
+    "credit": {
+      "type": "application",
+      "root": "apps/credit",
+      "entryFile": "main",
+      "sourceRoot": "apps/credit/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/credit/tsconfig.app.json"
+      }
+    },
+    "stripe": {
+      "type": "application",
+      "root": "apps/stripe",
+      "entryFile": "main",
+      "sourceRoot": "apps/stripe/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/stripe/tsconfig.app.json"
+      }
+    }
+  }
+}

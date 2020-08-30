@@ -1,12 +1,6 @@
 {
   "folders": [
     {
-      "path": "api-gateway-service"
-    },
-    {
-      "path": "common"
-    },
-    {
       "path": "content-service"
     },
     {
@@ -20,6 +14,12 @@
     },
     {
       "path": "user-service"
+    },
+    {
+      "path": "payments-service"
+    },
+    {
+      "path": "reflective"
     }
   ]
 }
