@@ -35,31 +35,22 @@
         "tsConfigPath": "apps/payments/tsconfig.app.json"
       }
     },
-    "user": {
+    "users": {
       "type": "application",
-      "root": "apps/user",
+      "root": "apps/users",
       "entryFile": "main",
-      "sourceRoot": "apps/user/src",
+      "sourceRoot": "apps/users/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/user/tsconfig.app.json"
+        "tsConfigPath": "apps/users/tsconfig.app.json"
       }
     },
-    "content": {
+    "venues": {
       "type": "application",
-      "root": "apps/venue/content",
+      "root": "apps/venues",
       "entryFile": "main",
-      "sourceRoot": "apps/venue/content/src",
+      "sourceRoot": "apps/venues/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/venue/content/tsconfig.app.json"
-      }
-    },
-    "venue": {
-      "type": "application",
-      "root": "apps/venue",
-      "entryFile": "main",
-      "sourceRoot": "apps/venue/src",
-      "compilerOptions": {
-        "tsConfigPath": "apps/venue/tsconfig.app.json"
+        "tsConfigPath": "apps/venues/tsconfig.app.json"
       }
     },
     "auth": {
@@ -87,6 +78,15 @@
       "sourceRoot": "apps/stripe/src",
       "compilerOptions": {
         "tsConfigPath": "apps/stripe/tsconfig.app.json"
+      }
+    },
+    "content": {
+      "type": "application",
+      "root": "apps/content",
+      "entryFile": "main",
+      "sourceRoot": "apps/content/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/content/tsconfig.app.json"
       }
     }
   }

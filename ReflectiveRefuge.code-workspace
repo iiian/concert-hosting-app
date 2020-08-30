@@ -1,24 +1,6 @@
 {
   "folders": [
     {
-      "path": "content-service"
-    },
-    {
-      "path": "credit-service"
-    },
-    {
-      "path": "venue-service"
-    },
-    {
-      "path": "web-service"
-    },
-    {
-      "path": "user-service"
-    },
-    {
-      "path": "payments-service"
-    },
-    {
       "path": "reflective"
     }
   ]
