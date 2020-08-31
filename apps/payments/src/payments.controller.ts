@@ -15,9 +15,9 @@ export class PaymentsController {
     return this.paymentsService.activateSubscription(userId);
   }
 
-  @MessagePattern('cancel-subscription')
+  @MessagePattern('pause-subscription')
   cancelSubscription(userId: string) {
-    this.paymentsService.pauseSubscription(userId);
+    return this.paymentsService.pauseSubscription(userId);
   }
 
   @MessagePattern('create-payment')

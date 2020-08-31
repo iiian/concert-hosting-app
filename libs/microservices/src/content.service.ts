@@ -3,10 +3,19 @@ import { BaseProxyService } from './base-proxy.service';
 
 @Injectable()
 export class ContentService extends BaseProxyService('Content') {
+  getAllForUser(userId: string) {
+    try {
+      return this.proxy
+        .send('get-all-for-user', userId)
+        .toPromise();
+    } catch(error) {
+      return new NotFoundException(error);
+    }
+  }
   async authorizeContent(userId: string, contentId: string) {
     try {
       return this.proxy
-        .send('authorize-content', { userId, contentId })
+        .send('authorize-content', [userId, contentId])
         .toPromise();
     } catch(error) {
       return new NotFoundException(error);
@@ -16,7 +25,7 @@ export class ContentService extends BaseProxyService('Content') {
   async authorizationCheck(userId: string, contentId: string) {
     try {
       return await this.proxy
-        .send('authorization-check', { userId, contentId })
+        .send('authorization-check', [userId, contentId])
         .toPromise();
     } catch(error) {
       return new NotFoundException(error);
@@ -26,7 +35,7 @@ export class ContentService extends BaseProxyService('Content') {
   async getContent(userId: string, contentReferenceId: string) {
     try {
       return await this.proxy
-        .send('get-content', { userId, contentReferenceId })
+        .send('get-content', [userId, contentReferenceId])
         .toPromise();
     } catch(error) {
       return new NotFoundException(error);

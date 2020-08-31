@@ -28,6 +28,15 @@ export class ContentController {
     return this.contentService.authorizeContent(userId, contentId);
   }
 
+  @Get(`:${UID}/content/`)
+  @UseGuards(JwtAuthGuard)
+  getAllForUser(
+    @Param(UID) userId: string,
+    @Param(CID) contentReferenceId: string,
+  ) {
+    return this.contentService.getAllForUser(userId);
+  }
+  
   @Get(`:${UID}/content/:${CID}`)
   @UseGuards(JwtAuthGuard)
   getContent(

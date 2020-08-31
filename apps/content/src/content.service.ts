@@ -35,6 +35,11 @@ export class ContentService {
     return userAuthorizations.includes(contentId);
   }
 
+  getAllForUser(userId: any) {
+    return Object.keys(this.contentAuths[userId])
+      .map(key => this.findById(key));
+  }
+
   constructor() {
     this.contentAuths = {
       ['1']: {
@@ -63,6 +68,16 @@ export class ContentService {
     this.content = {
       ['abcdef1234']: [
         {
+          id: '1234',
+          name: 'Wylde Stallions (w/ special guest star Rufus)',
+          thumbnail: 'https://homepages.cae.wisc.edu/~ece533/images/pool.png'
+        },
+        {
+          id: '2468',
+          name: 'The Fall of Troy',
+          thumbnail: 'https://homepages.cae.wisc.edu/~ece533/images/pool.png'
+        },
+        {
           id: 'xyz987',
           cost: 1,
           name: 'Big Boi, Live @ The Independent 09/16/20',
@@ -76,7 +91,7 @@ export class ContentService {
     };
 
     this.authorizations = {
-      ['0']: ['xyz987', 'nth345'],
+      ['1']: ['xyz987', 'nth345'],
     };
   }
 }

@@ -11,8 +11,13 @@ export class VenuesController {
     private contentService: ContentService
   ) {}
   
+  @Get()
+  async getVenues() {
+    return this.venuesService.getVenues();
+  }
+
   @Get(`:${VID}`)
   async getVenue(@Param(VID) venueId) {
-    this.contentService.getContent
+    return this.venuesService.getVenue(venueId);
   }
 }

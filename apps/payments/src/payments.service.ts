@@ -30,6 +30,7 @@ export class PaymentsService {
       throw new RpcException(`${userId} unknown by the PaymentsService!`);
     }
     this.moneyStuff[userId].subscription_status = 'paused';
+    return 'paused';
   }
 
   activateSubscription(userId: string) {
@@ -37,6 +38,7 @@ export class PaymentsService {
       throw new RpcException(`${userId} unknown by the PaymentsService!`);
     }
     this.moneyStuff[userId].subscription_status = 'active';
+    return 'activated';
   }
 
   getSubscriptionStatus(userId: string) {
