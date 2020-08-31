@@ -18,8 +18,8 @@ export class UsersService {
     this.proxy = ClientProxyFactory.create({
       transport: Transport.TCP,
       options: {
-        host: configService.get('usersServiceHost'),
-        port: configService.get('usersServicePort'),
+        host: configService.get('usersService.host'),
+        port: configService.get('usersService.port'),
       },
     });
   }

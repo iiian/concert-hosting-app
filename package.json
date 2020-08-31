@@ -21,7 +21,6 @@
     "test:e2e": "jest --config ./apps/reflective/test/jest-e2e.json"
   },
   "dependencies": {
-    "@nest/microservices": "^4.5.4",
     "@nestjs/common": "^7.0.0",
     "@nestjs/config": "^0.5.0",
     "@nestjs/core": "^7.0.0",
@@ -29,6 +28,7 @@
     "@nestjs/microservices": "^7.4.3",
     "@nestjs/passport": "^7.1.0",
     "@nestjs/platform-express": "^7.0.0",
+    "change-case": "^4.1.1",
     "concurrently": "^5.3.0",
     "passport": "^0.4.1",
     "passport-custom": "^1.1.1",
@@ -79,7 +79,9 @@
     ],
     "moduleNameMapper": {
       "@rr/auth/(.*)": "<rootDir>/libs/auth/src/$1",
-      "@rr/auth": "<rootDir>/libs/auth/src"
+      "@rr/auth": "<rootDir>/libs/auth/src",
+      "@rr/microservices/(.*)": "<rootDir>/libs/microservices/src/$1",
+      "@rr/microservices": "<rootDir>/libs/microservices/src"
     }
   }
 }

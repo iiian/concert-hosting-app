@@ -10,8 +10,8 @@ async function bootstrap() {
   const logger = new Logger(NAME);
   const app = await NestFactory.create(CreditModule, { logger });
   const configService = app.get<ConfigService>(ConfigService);
-  const host = configService.get('creditServiceHost');
-  const port = configService.get('creditServicePort');
+  const host = configService.get('creditService.host');
+  const port = configService.get('creditService.port');
   app.connectMicroservice({
     transport: Transport.TCP,
     options: { host, port },

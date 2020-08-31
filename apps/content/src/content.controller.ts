@@ -1,4 +1,4 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Param } from '@nestjs/common';
 import { ContentService } from './content.service';
 import { MessagePattern } from '@nestjs/microservices';
 
@@ -9,6 +9,17 @@ export class ContentController {
   @MessagePattern('list-for-venue')
   findAllForVenueId(@Param('id') venueId: string): any[] {
     return this.contentService.findAllForVenueId(venueId);
+  }
+
+  @MessagePattern('get-content')
+  getContent({
+    userId,
+    contentReferenceId,
+  }: {
+    userId: string;
+    contentReferenceId: string;
+  }) {
+    return this.contentService.getContent(userId, contentReferenceId);
   }
 
   @MessagePattern('authorize-content')

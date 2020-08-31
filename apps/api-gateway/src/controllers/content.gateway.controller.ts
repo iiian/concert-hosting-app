@@ -7,7 +7,7 @@ import {
   Logger,
 } from '@nestjs/common';
 import { JwtAuthGuard } from '@rr/auth';
-import { ContentService } from './content.service';
+import { ContentService } from '@rr/microservices';
 import { USERS_ROUTE } from '../../route.constants';
 
 const UID = 'uid';

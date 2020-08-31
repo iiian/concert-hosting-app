@@ -1,6 +1,6 @@
 import { Controller, Post, Body } from '@nestjs/common';
-import { PaymentsService } from './payments.service';
-import { USERS_ROUTE } from 'apps/api-gateway/route.constants';
+import { USERS_ROUTE } from '../../route.constants';
+import { PaymentsService } from '@rr/microservices';
 
 @Controller(`${USERS_ROUTE}/:id/subscription`)
 export class SubscriptionController {

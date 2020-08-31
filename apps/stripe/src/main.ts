@@ -10,8 +10,8 @@ async function bootstrap() {
   const logger = new Logger(NAME);
   const app = await NestFactory.create(StripeModule, { logger });
   const configService = app.get<ConfigService>(ConfigService);
-  const host = configService.get('stripeServiceHost');
-  const port = configService.get('stripeServicePort');
+  const host = configService.get('stripeService.host');
+  const port = configService.get('stripeService.port');
   app.connectMicroservice({
     transport: Transport.TCP,
     options: { host, port },

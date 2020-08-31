@@ -62,6 +62,15 @@
         "tsConfigPath": "libs/auth/tsconfig.lib.json"
       }
     },
+    "microservices": {
+      "type": "library",
+      "root": "libs/microservices",
+      "entryFile": "index",
+      "sourceRoot": "libs/microservices/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/microservices/tsconfig.lib.json"
+      }
+    },
     "credit": {
       "type": "application",
       "root": "apps/credit",

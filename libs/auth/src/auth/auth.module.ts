@@ -1,50 +1,6 @@
-// import { Module, DynamicModule, Inject } from '@nestjs/common';
-// import { PassportModule } from '@nestjs/passport';
-// import { JwtModule, JwtModuleOptions } from '@nestjs/jwt';
-// import { JwtStrategy } from './jwt.strategy';
-// import { JwtAuthGuard } from './jwt-auth.guard';
-// import { Subject } from 'rxjs';
-// import { ConfigService } from '@nestjs/config';
-
-// export type AuthModuleOptions = {
-//   jwt: JwtModuleOptions;
-// }
-
-// @Module({})
-// export class ReflectiveAuthModule {
-//   private static _jwtModuleOptions$: Subject<JwtModuleOptions> = new Subject<JwtModuleOptions>();
-
-//   public static async registerAsync(configService: ConfigService): Promise<DynamicModule> {
-//     const jwt = configService.get<JwtModuleOptions>('authJwtModuleOptions');
-//     const jwtModule = JwtModule.register(jwt);
-//     console.log('saved jwt module options to the side...');
-//     return {
-//       module: ReflectiveAuthModule,
-//       imports: [
-//         PassportModule,
-//         jwtModule,
-//       ],
-//       providers: [
-//         {
-//           provide: 'JWT_OPTIONS',
-//           useValue: jwt,
-//         },
-//         JwtStrategy,
-//         JwtAuthGuard,
-//       ]
-//     };
-//   }
-
-//   public static async getJwtModuleAsync(configService: ConfigService): Promise<DynamicModule> {
-//     const jwtOptions = await ReflectiveAuthModule._jwtModuleOptions$.toPromise();
-//     console.log(jwtOptions);
-//     return JwtModule.register(jwtOptions);
-//   }
-// }
-
 import { Module } from '@nestjs/common';
 import { PassportModule } from '@nestjs/passport';
-import { JwtModule, JwtModuleOptions } from '@nestjs/jwt';
+import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './jwt.strategy';
 import { JwtAuthGuard } from './jwt-auth.guard';
 import { ConfigModule, ConfigService } from '@nestjs/config';
@@ -81,9 +37,9 @@ import { UsersModule } from '../users/users.module';
     JwtStrategy,
     JwtAuthGuard,
     LocalStrategy,
-    LocalAuthGuard,
+    LocalAuthGuard
   ],
   controllers: [AuthController],
-  exports: [AuthService],
+  exports: [AuthService, JwtAuthGuard],
 })
 export class AuthModule {}

@@ -1,21 +1,17 @@
 import { Module } from '@nestjs/common';
 import { AuthModule, AuthController } from '@rr/auth';
+import { RrMicroservicesModule } from '@rr/microservices';
 import { ConfigModule } from '@nestjs/config';
-import { VenuesModule } from './venues/venues.module';
-import { VenuesController } from './venues/venues.controller';
-import { PaymentsModule } from './payments/payments.module';
-import { PaymentsController } from './payments/payments.controller';
-import { SubscriptionController } from './payments/subscription.controller';
-import { ContentController } from './content/content.controller';
-import { ContentModule } from './content/content.module';
+import { VenuesController } from './controllers/venues.gateway.controller';
+import { PaymentsController } from './controllers/payments.gateway.controller';
+import { SubscriptionController } from './controllers/subscription.gateway.controller';
+import { ContentController } from './controllers/content.gateway.controller';
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
+    RrMicroservicesModule,
     AuthModule,
-    VenuesModule,
-    PaymentsModule,
-    ContentModule,
   ],
   controllers: [
     AuthController,
