@@ -1,11 +1,12 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './payments.controller';
-import { AppService } from './payments.service';
+import { PaymentsController } from './payments.controller';
+import { PaymentsService } from './payments.service';
 import { ConfigModule } from '@nestjs/config';
+import { RrMicroservicesModule } from '@rr/microservices';
 
 @Module({
-  imports: [ConfigModule.forRoot()],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [ConfigModule.forRoot(), RrMicroservicesModule],
+  controllers: [PaymentsController],
+  providers: [PaymentsService],
 })
 export class PaymentsModule {}
