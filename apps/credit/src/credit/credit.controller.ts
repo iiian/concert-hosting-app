@@ -1,17 +1,20 @@
-import { Controller } from '@nestjs/common';
-import { MessagePattern } from '@nestjs/microservices';
+import { Controller, Logger, Param } from '@nestjs/common';
+import { MessagePattern, Payload } from '@nestjs/microservices';
+import { CreditService } from './credit.service';
 
 @Controller()
 export class CreditController {
-  constructor() {}
+  logger = new Logger('CreditController');
 
-  @MessagePattern({ role: 'system', cmd: 'addCreditsForUser' })
-  async addCreditsForUser(userId: string, amount: number): Promise<number> {
-    return 10;
+  constructor(private creditService: CreditService) {}
+
+  @MessagePattern('transact')
+  transact([userId, amount]: [string, number]) {
+    return this.creditService.transact(userId, amount)
   }
 
-  @MessagePattern({ role: 'system', cmd: 'getCreditsForUser' })
-  async getCreditsForUser(userId: string, amount: number): Promise<number> {
-    return 100;
+  @MessagePattern('get')
+  getCreditsForUser(userId: string) {
+    return this.creditService.getBalance(userId);
   }
 }

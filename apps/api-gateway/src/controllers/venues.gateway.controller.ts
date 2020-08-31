@@ -1,4 +1,4 @@
-import { Controller, Get, Body, Param } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 import { VENUES_ROUTE } from '../../route.constants';
 import { VenuesService, ContentService } from '@rr/microservices';
 

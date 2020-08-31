@@ -8,6 +8,8 @@ export interface BaseProxyService {
   proxy: ClientProxy;
 }
 export const BaseProxyService = (serviceConfigPrefix: string): Type<BaseProxyService> => {
+  serviceConfigPrefix += 'Service';
+
   @Injectable()
   class BaseProxyService {
     /*

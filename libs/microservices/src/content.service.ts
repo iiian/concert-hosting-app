@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { BaseProxyService } from './base-proxy.service';
 
 @Injectable()
-export class ContentService extends BaseProxyService('ContentService') {
+export class ContentService extends BaseProxyService('Content') {
   async authorizeContent(userId: string, contentId: string) {
     try {
       return this.proxy
