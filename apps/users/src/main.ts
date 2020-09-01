@@ -1,5 +1,5 @@
 import { NestFactory } from '@nestjs/core';
-import { UsersModule } from './users.module';
+import { UsersModule } from './users/users.module';
 import { Logger } from '@nestjs/common';
 import { Transport } from '@nestjs/microservices';
 import { ConfigService } from '@nestjs/config';
