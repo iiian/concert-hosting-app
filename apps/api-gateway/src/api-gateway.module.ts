@@ -7,10 +7,11 @@ import { PaymentsController } from './controllers/payments.gateway.controller';
 import { SubscriptionController } from './controllers/subscription.gateway.controller';
 import { ContentController } from './controllers/content.gateway.controller';
 import { UsersController } from './controllers/users.gateway.controller';
+import { rootConfig } from 'config';
 
 @Module({
   imports: [
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot(rootConfig),
     RrMicroservicesModule,
     AuthModule,
   ],

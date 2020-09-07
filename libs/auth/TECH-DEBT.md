@@ -1,0 +1,1 @@
+1. Remove auth route code from this library - integrate into `api-gateway`.

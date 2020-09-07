@@ -18,15 +18,15 @@ export class UsersService {
     this.proxy = ClientProxyFactory.create({
       transport: Transport.TCP,
       options: {
-        host: configService.get('usersService.host'),
-        port: configService.get('usersService.port'),
+        host: configService.get('services.users.host'),
+        port: configService.get('services.users.port'),
       },
     });
   }
 
-  async findOne(username: string): Promise<User> {
+  async findOne(email: string): Promise<User> {
     const user = await this.proxy
-      .send({ role: 'user', cmd: 'get' }, username)
+      .send({ role: 'user', cmd: 'get' }, email)
       .toPromise();
     this.logger.log(user);
     return user;

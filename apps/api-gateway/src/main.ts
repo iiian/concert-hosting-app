@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { ApiGatewayModule } from './api-gateway.module';
 import { ConfigService } from '@nestjs/config';
 import { Logger } from '@nestjs/common';
+import { MicroserviceConfig } from '@rr/microservices';
 
 const NAME = 'APIGatewayService';
 
@@ -10,7 +11,7 @@ async function bootstrap() {
   const app = await NestFactory.create(ApiGatewayModule, { logger });
   const configService = app.get<ConfigService>(ConfigService);
   app.setGlobalPrefix('api/v1');
-  const port = configService.get<number>('apiGatewayService.port');
+  const { port } = configService.get<MicroserviceConfig>('services.apiGateway');
   await app.listen(port);
   logger.log(`${NAME} alive on :${port}`);
 }
