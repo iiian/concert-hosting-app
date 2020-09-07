@@ -1,13 +1,14 @@
 import { Controller } from '@nestjs/common';
 import { PaymentsService } from './payments.service';
-import { CreditService, TransactionType } from '@rr/microservices';
+import { CreditServiceClient, TransactionType } from '@rr/microservices';
 import { MessagePattern } from '@nestjs/microservices';
+import { getCreditsForPayment } from './getCreditsForPayment';
 
 @Controller()
 export class PaymentsController {
   constructor(
     private readonly paymentsService: PaymentsService,
-    private readonly creditService: CreditService
+    private readonly creditServiceClient: CreditServiceClient
   ) {}
 
   @MessagePattern('activate-subscription')
@@ -22,8 +23,12 @@ export class PaymentsController {
 
   @MessagePattern('create-payment')
   async createPayment([userId, amount]: [string, number]) {
-    const { creditValue } = await this.paymentsService.createPayment(userId, amount);
-    await this.creditService.transactCredits(userId, TransactionType.GRANT, creditValue);
+    await this.paymentsService.createPayment(userId, amount);
+    await this.creditServiceClient.transactCredits(
+      userId,
+      TransactionType.GRANT,
+      getCreditsForPayment(amount)
+    );
     return 'ok';
   }
 

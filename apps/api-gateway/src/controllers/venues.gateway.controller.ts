@@ -1,14 +1,14 @@
 import { Controller, Get, Param } from '@nestjs/common';
 import { VENUES_ROUTE } from '../../route.constants';
-import { VenuesService, ContentService } from '@rr/microservices';
+import { VenuesServiceClient, ContentServiceClient } from '@rr/microservices';
 
 const VID = 'vid';
 
 @Controller(VENUES_ROUTE)
 export class VenuesController {
   constructor(
-    private venuesService: VenuesService,
-    private contentService: ContentService
+    private venuesService: VenuesServiceClient,
+    private contentService: ContentServiceClient
   ) {}
   
   @Get()

@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { BaseProxyService } from './base-proxy.service';
+import { BaseServiceClient } from './base-service-client';
 
 @Injectable()
-export class PaymentsService extends BaseProxyService('Payments') {
+export class PaymentsServiceClient extends BaseServiceClient('Payments') {
   createPayment(userId: string, amount: number): any {
     return this.proxy.send('create-payment', [userId, amount]).toPromise();
   }

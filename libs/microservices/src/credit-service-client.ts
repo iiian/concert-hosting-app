@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { BaseProxyService } from './base-proxy.service';
+import { BaseServiceClient } from './base-service-client';
 
 export enum TransactionType {
   SPEND = 1,
@@ -7,7 +7,7 @@ export enum TransactionType {
 }
 
 @Injectable()
-export class CreditService extends BaseProxyService('Credit') {
+export class CreditServiceClient extends BaseServiceClient('Credit') {
   transactCredits(userId: string, type: TransactionType, amount: number) {
     return this.proxy
     .send('transact', [userId, type * amount])

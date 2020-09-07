@@ -31,11 +31,15 @@ export class UsersService {
     return userEntity.id;
   }
 
-  async findOne(email: string): Promise<UserEntity> {
+  async findOneByEmail(email: string): Promise<UserEntity> {
     const user = await this.userRepo.findOne({ where: { email } });
     if (!user) {
       throw new RpcException('User not found');
     }
     return user;
+  }
+
+  async existsById(id: string): Promise<boolean> {
+    return Boolean(await this.userRepo.findOne({ where: { id } }));
   }
 }

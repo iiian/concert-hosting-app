@@ -1,5 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { UsersService, User } from '../users/users.service';
+import { UsersServiceClient, User } from '../users/users-service-client';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 
@@ -7,7 +7,7 @@ import * as bcrypt from 'bcrypt';
 export class AuthService {
   private logger = new Logger('AuthService');
   constructor(
-    private userService: UsersService,
+    private userService: UsersServiceClient,
     private jwtService: JwtService,
   ) {}
 
@@ -30,5 +30,4 @@ export class AuthService {
   async signup(user: any): Promise<any> {
     return this.userService.create(user);
   }
-
 }

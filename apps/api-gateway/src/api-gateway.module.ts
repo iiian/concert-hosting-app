@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { AuthModule, AuthController } from '@rr/auth';
+import { AuthModule, AuthController, UsersModule } from '@rr/auth';
 import { RrMicroservicesModule } from '@rr/microservices';
 import { ConfigModule } from '@nestjs/config';
 import { VenuesController } from './controllers/venues.gateway.controller';

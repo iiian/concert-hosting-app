@@ -1,15 +1,15 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { VenuesService } from './venues.service';
+import { VenuesServiceClient } from './venues-service-client';
 
 describe('VenuesController', () => {
-  let controller: VenuesService;
+  let controller: VenuesServiceClient;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      controllers: [VenuesService],
+      controllers: [VenuesServiceClient],
     }).compile();
 
-    controller = module.get<VenuesService>(VenuesService);
+    controller = module.get<VenuesServiceClient>(VenuesServiceClient);
   });
 
   it('should be defined', () => {

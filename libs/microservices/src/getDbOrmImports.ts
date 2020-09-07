@@ -2,7 +2,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigService, ConfigModule } from '@nestjs/config';
 import { MicroserviceDatabaseConfig } from './service-config';
 
-export function getDbOrmImports(name: string, type: any) {
+export function getDbOrmImports(name: string, types: any[]) {
   return [
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
@@ -16,11 +16,11 @@ export function getDbOrmImports(name: string, type: any) {
           username: databaseConfig.username,
           password: databaseConfig.password,
           database: databaseConfig.database,
-          entities: [type],
+          entities: types,
           synchronize: true
         };
       }
     }),
-    TypeOrmModule.forFeature([type])
+    TypeOrmModule.forFeature(types)
   ]
 }

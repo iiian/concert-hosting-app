@@ -1,10 +1,11 @@
 import { Module } from '@nestjs/common';
-import { UsersService } from './users.service';
+import { UsersServiceClient } from './users-service-client';
 import { ClientsModule } from '@nestjs/microservices';
 import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [ConfigModule, ClientsModule],
-  providers: [UsersService],
+  providers: [UsersServiceClient],
+  exports: [UsersServiceClient]
 })
 export class UsersModule {}

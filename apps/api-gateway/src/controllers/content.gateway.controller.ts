@@ -7,7 +7,7 @@ import {
   Logger,
 } from '@nestjs/common';
 import { JwtAuthGuard } from '@rr/auth';
-import { ContentService } from '@rr/microservices';
+import { ContentServiceClient } from '@rr/microservices';
 import { USERS_ROUTE } from '../../route.constants';
 
 const UID = 'uid';
@@ -16,7 +16,7 @@ const CID = 'cid';
 @Controller(USERS_ROUTE)
 export class ContentController {
   private logger = new Logger('ContentController');
-  constructor(private readonly contentService: ContentService) {}
+  constructor(private readonly contentService: ContentServiceClient) {}
 
   @Post(`:${UID}/content`)
   @UseGuards(JwtAuthGuard)
