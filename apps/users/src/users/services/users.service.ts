@@ -1,39 +1,36 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Repository, FindOneOptions } from 'typeorm';
+import { ConfigService } from '@nestjs/config';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Injectable, Logger, Inject } from '@nestjs/common';
 import { RpcException } from '@nestjs/microservices';
-
-export type User = any;
+import { User } from '../models/user.entity';
+import {} from '../../../../../config'
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UsersService {
   private logger = new Logger('UsersService ms');
   private readonly users: User[];
+  private saltRounds = 10;
+  constructor(
+    configService: ConfigService, 
+    @InjectRepository(User)
+    private userRepo: Repository<User>
+  ) {}
 
-  constructor() {
-    this.users = [
-      {
-        userId: 1,
-        username: 'john',
-        password: 'changeme',
-      },
-      {
-        userId: 2,
-        username: 'chris',
-        password: 'secret',
-      },
-      {
-        userId: 3,
-        username: 'maria',
-        password: 'guess',
-      },
-    ];
+  async save(email: string, password: string): Promise<User> {
+    const user = new User();
+    user.email = email;
+    user.password = bcrypt.genSaltSync();
+    // this.userRepo.save()
+    return null;
   }
 
-  async findOne(username: string): Promise<User> {
-    const user = this.users.find(user => user.username === username);
+  async findOne(email: string): Promise<User> {
+    const user = await this.userRepo.findOne({ where: { email } });
     if (!user) {
       throw new RpcException('User not found');
     }
-    this.logger.log(user);
     return user;
   }
 }

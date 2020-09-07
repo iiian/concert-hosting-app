@@ -4,3 +4,6 @@ export * from './payments.service';
 export * from './content.service';
 export * from './venues.service';
 export * from './credit.service';
+export * from './bootstrapMicroservice';
+export * from './getDbOrmImports';
+export * from './service-config';
