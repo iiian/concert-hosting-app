@@ -5,6 +5,7 @@ import {
   Param,
   Get,
   Logger,
+  Body,
 } from '@nestjs/common';
 import { JwtAuthGuard } from '@rr/auth';
 import { ContentServiceClient } from '@rr/microservices';
@@ -18,13 +19,14 @@ export class ContentController {
   private logger = new Logger('ContentController');
   constructor(private readonly contentService: ContentServiceClient) {}
 
-  @Post(`:${UID}/content`)
+  @Post(`:${UID}/content/`)
   @UseGuards(JwtAuthGuard)
   authorizeContent(
     @Param(UID) userId: string,
-    // needs to be 'contentId' because it's not pulled from the body, not the URI.
-    @Param('contentId') contentId: string,
+    @Body('content_id') contentId: string,
   ) {
+    this.logger.log(userId);
+    this.logger.log(contentId);
     return this.contentService.authorizeContent(userId, contentId);
   }
 
@@ -41,8 +43,8 @@ export class ContentController {
   @UseGuards(JwtAuthGuard)
   getContent(
     @Param(UID) userId: string,
-    @Param(CID) contentReferenceId: string,
+    @Param(CID) contentId: string,
   ) {
-    return this.contentService.getContent(userId, contentReferenceId);
+    return this.contentService.getContent(userId, contentId);
   }
 }
