@@ -1,5 +1,5 @@
 import { Controller, Get, Param } from '@nestjs/common';
-import { VenuesService } from './service/venues.service';
+import { VenuesService } from './venues.service';
 import { Venue } from './types/venue';
 import { MessagePattern } from '@nestjs/microservices';
 

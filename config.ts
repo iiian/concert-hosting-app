@@ -38,14 +38,22 @@ export const config: RRConfigObject = {
         type: 'postgres',
         database: 'postgres',
         host: 'localhost',
-        port: 6935,
+        port: 7001,
         username: 'iiian',
         password: 'test-password'
       }
     },
     venues: {
       host: 'localhost',
-      port: 6906
+      port: 6906,
+      database: {
+        type: 'postgres',
+        database: 'postgres',
+        host: 'localhost',
+        port: 7000,
+        username: 'iiian',
+        password: 'test-password'
+      }
     },
   }
 }
