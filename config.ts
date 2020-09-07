@@ -21,7 +21,15 @@ export const config: RRConfigObject = {
     },
     credit: {
       host: 'localhost',
-      port: 6902
+      port: 6902,
+      database: {
+        type: 'postgres',
+        database: 'postgres',
+        host: 'localhost',
+        port: 7002,
+        username: 'postgres',
+        password: 'test-password'
+      }
     },
     payments: {
       host: 'localhost',

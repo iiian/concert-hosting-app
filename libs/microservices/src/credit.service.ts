@@ -13,9 +13,16 @@ export class CreditService extends BaseProxyService('Credit') {
     .send('transact', [userId, type * amount])
     .toPromise();
   }
+
   getCredits(userId: string) {
     return this.proxy
       .send('get', userId)
+      .toPromise();
+  }
+
+  create(userId: string, defaultAmount: number = 0) {
+    return this.proxy
+      .send('create', [userId, defaultAmount])
       .toPromise();
   }
 }

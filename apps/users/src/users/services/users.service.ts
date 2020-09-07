@@ -28,7 +28,7 @@ export class UsersService {
     userEntity.password = bcrypt.hashSync(password, 10);
     this.logger.log(userEntity.password);
     await this.userRepo.save(userEntity);
-    return 'ok';
+    return userEntity.id;
   }
 
   async findOne(email: string): Promise<UserEntity> {

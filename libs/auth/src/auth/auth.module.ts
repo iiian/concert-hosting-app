@@ -10,11 +10,13 @@ import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
 import { UsersService } from '../users/users.service';
 import { UsersModule } from '../users/users.module';
+import { RrMicroservicesModule } from '@rr/microservices';
 
 @Module({
   imports: [
     UsersModule,
     PassportModule,
+    RrMicroservicesModule,
     JwtModule.registerAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
