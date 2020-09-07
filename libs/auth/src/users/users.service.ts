@@ -16,10 +16,9 @@ export class UsersService {
   private readonly proxy: ClientProxy;
 
   constructor(configService: ConfigService) {
-    const options = configService.get('services.users');
     this.proxy = ClientProxyFactory.create({
       transport: Transport.TCP,
-      options
+      options: configService.get<MicroserviceConfig>('services.users')
     });
 
   }
