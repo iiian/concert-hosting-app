@@ -9,7 +9,6 @@ export function getDbOrmImports(name: string, type: any) {
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => {
         const database: MicroserviceDatabaseConfig = configService.get(`services.${name}.database`);
-        console.log(database);
         return {
           type: database.type,
           host: database.host,

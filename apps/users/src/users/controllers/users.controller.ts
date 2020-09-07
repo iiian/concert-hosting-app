@@ -7,8 +7,13 @@ import { User } from '@rr/auth/users/users.service';
 export class UsersController {
   constructor(private userService: UsersService) {}
 
-  @MessagePattern({ role: 'user', cmd: 'get' })
+  @MessagePattern('find-one')
   get(username: string): Promise<User> {
     return this.userService.findOne(username);
+  }
+
+  @MessagePattern('sign-up')
+  signUp(user: object): Promise<string> {
+    return this.userService.save(user);
   }
 }

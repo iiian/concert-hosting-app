@@ -13,9 +13,8 @@ export const BaseProxyService = (serviceName: string): Type<BaseProxyService> =>
   class BaseProxyService {
     /*
      * @TODO: 
-     * uh, so what happens when this gets instantiated on N different processes, 
-     * and we can't tell which belongs to who? 
-     * shi
+     * uh, so what happens when this gets instantiated on N different processes,
+     * and we can't tell which belongs to who?
      */
     public logger: Logger;
     public proxy: ClientProxy;

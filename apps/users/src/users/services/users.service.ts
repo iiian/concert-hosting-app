@@ -11,19 +11,24 @@ import * as bcrypt from 'bcrypt';
 export class UsersService {
   private logger = new Logger('UsersService ms');
   private readonly users: User[];
-  private saltRounds = 10;
+  private saltRounds: number;
   constructor(
     configService: ConfigService, 
     @InjectRepository(User)
     private userRepo: Repository<User>
-  ) {}
+  ) {
+    this.saltRounds = Number(configService.get('bcrypt.saltRounds')) || 10;
+  }
 
-  async save(email: string, password: string): Promise<User> {
-    const user = new User();
-    user.email = email;
-    user.password = bcrypt.genSaltSync();
-    // this.userRepo.save()
-    return null;
+  async save({ password, ...user}: any): Promise<string> {
+    const userEntity = new User();
+    Object
+    .entries(user)
+    .forEach(([key, value]) => userEntity[key] = value);
+    userEntity.password = bcrypt.hashSync(password, 10);
+    this.logger.log(userEntity.password);
+    await this.userRepo.save(userEntity);
+    return 'ok';
   }
 
   async findOne(email: string): Promise<User> {
