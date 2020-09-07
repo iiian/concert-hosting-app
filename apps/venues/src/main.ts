@@ -1,4 +1,4 @@
-import { VenuesModule } from './venues/venues.module';
+import { VenuesModule } from './venues.module';
 import { bootstrap } from '@rr/microservices';
 
 bootstrap({

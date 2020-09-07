@@ -8,17 +8,16 @@ export function getDbOrmImports(name: string, type: any) {
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => {
-        const database: MicroserviceDatabaseConfig = configService.get(`services.${name}.database`);
+        const databaseConfig: MicroserviceDatabaseConfig = configService.get(`services.${name}.database`);
         return {
-          type: database.type,
-          host: database.host,
-          port: database.port,
-          username: database.username,
-          password: database.password,
-          database: database.database,
+          type: databaseConfig.type,
+          host: databaseConfig.host,
+          port: databaseConfig.port,
+          username: databaseConfig.username,
+          password: databaseConfig.password,
+          database: databaseConfig.database,
           entities: [type],
-          synchronize: true,
-          keepConnectionAlive: true
+          synchronize: true
         };
       }
     }),

@@ -16,11 +16,11 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(req: any, payload: any) {
-    if (req.params.uid !== undefined && Number(req.params.uid) !== Number(payload.sub)) {
-      this.logger.log(`authz failure: ${payload.username} is not authorized to take actions against user ${req.params.uid}`);
-      throw new UnauthorizedException(`${payload.username} is not authorized to take actions against user ${req.params.uid}`);
+    if (req.params.uid !== undefined && req.params.uid !== payload.sub) {
+      this.logger.log(`authz failure: ${payload.email} is not authorized to take actions against user ${req.params.uid}`);
+      throw new UnauthorizedException(`${payload.email} is not authorized to take actions against user ${req.params.uid}`);
     }
 
-    return { userId: payload.sub, username: payload.username };
+    return { userId: payload.sub, email: payload.email };
   }
 }

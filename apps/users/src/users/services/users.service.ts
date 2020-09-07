@@ -3,25 +3,25 @@ import { ConfigService } from '@nestjs/config';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Injectable, Logger, Inject } from '@nestjs/common';
 import { RpcException } from '@nestjs/microservices';
-import { User } from '../models/user.entity';
+import { UserEntity } from '../models/user-entity';
 import {} from '../../../../../config'
 import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UsersService {
   private logger = new Logger('UsersService ms');
-  private readonly users: User[];
+  private readonly users: UserEntity[];
   private saltRounds: number;
   constructor(
     configService: ConfigService, 
-    @InjectRepository(User)
-    private userRepo: Repository<User>
+    @InjectRepository(UserEntity)
+    private userRepo: Repository<UserEntity>
   ) {
     this.saltRounds = Number(configService.get('bcrypt.saltRounds')) || 10;
   }
 
   async save({ password, ...user}: any): Promise<string> {
-    const userEntity = new User();
+    const userEntity = new UserEntity();
     Object
     .entries(user)
     .forEach(([key, value]) => userEntity[key] = value);
@@ -31,7 +31,7 @@ export class UsersService {
     return 'ok';
   }
 
-  async findOne(email: string): Promise<User> {
+  async findOne(email: string): Promise<UserEntity> {
     const user = await this.userRepo.findOne({ where: { email } });
     if (!user) {
       throw new RpcException('User not found');
