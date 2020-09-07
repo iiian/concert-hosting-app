@@ -1,20 +1,26 @@
 import { Injectable } from '@nestjs/common';
+import { Repository } from 'typeorm';
+import { VenueEntity } from './venue-entity';
+import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class VenuesService {
+  constructor(
+    @InjectRepository(VenueEntity)
+    private venuesRepo: Repository<VenueEntity>
+  ) {}
 
   async save(venue: any) {
     
   }
 
-  async findOne(id: string): Promise<Venue> {
-    return this.venues[id].withId(id);
+  findOne(id: string): Promise<VenueEntity> {
+    return this.venuesRepo.findOne(id);
   }
 
-  async findAll(): Promise<> {
-    return Object.entries(this.venues).map(entry => ({
-      id: entry[0],
-      name: entry[1].name,
-    }));
+  findAll(): Promise<VenueEntity[]> {
+    return this.venuesRepo.find({
+      select: ['id', 'name', 'state']
+    });
   }
 }

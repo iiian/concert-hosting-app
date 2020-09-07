@@ -51,7 +51,7 @@ export const config: RRConfigObject = {
         database: 'postgres',
         host: 'localhost',
         port: 7000,
-        username: 'iiian',
+        username: 'postgres',
         password: 'test-password'
       }
     },

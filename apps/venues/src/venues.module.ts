@@ -4,11 +4,15 @@ import { ConfigModule } from '@nestjs/config';
 import { VenuesController } from './venues.controller';
 import { rootConfig } from 'config';
 import { getDbOrmImports } from '@rr/microservices/getDbOrmImports';
-import { Venue } from './venue-entity';
+import { VenueEntity } from './venue-entity';
 
 @Module({
-  imports: [ConfigModule.forRoot(rootConfig), ...getDbOrmImports('venues', Venue)],
+  imports: [
+    ConfigModule.forRoot(rootConfig),
+    ...getDbOrmImports('venues', VenueEntity)
+  ],
   providers: [VenuesService],
+  exports: [VenuesService],
   controllers: [VenuesController],
 })
 export class VenuesModule {}
