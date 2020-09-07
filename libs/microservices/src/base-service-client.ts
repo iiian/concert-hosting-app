@@ -4,13 +4,13 @@ import { ConfigService } from '@nestjs/config';
 import { camelCase, paramCase } from 'change-case';
 import { MicroserviceConfig } from './service-config';
 
-export interface BaseProxyService {
+export interface BaseServiceClient {
   logger: Logger;
   proxy: ClientProxy;
 }
-export const BaseProxyService = (serviceName: string): Type<BaseProxyService> => {
+export const BaseServiceClient = (serviceName: string): Type<BaseServiceClient> => {
   @Injectable()
-  class BaseProxyService {
+  class BaseServiceClient {
     /*
      * @TODO: 
      * uh, so what happens when this gets instantiated on N different processes,
@@ -30,5 +30,5 @@ export const BaseProxyService = (serviceName: string): Type<BaseProxyService> =>
     }
   }
 
-  return BaseProxyService;
+  return BaseServiceClient;
 };

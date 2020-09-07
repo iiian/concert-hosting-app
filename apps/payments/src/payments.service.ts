@@ -1,51 +1,50 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { RpcException } from '@nestjs/microservices';
+import { Repository } from 'typeorm';
+import { PaymentsEntity } from './payments-entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { SubscriptionEntity } from './subscription-entity';
 
 @Injectable()
 export class PaymentsService {
-  moneyStuff = {
-    ['1']: {
-      subscription_status: 'paused',
-      payments: []
-    }
-  };
+  logger = new Logger('PaymentsService');
+  constructor(
+    @InjectRepository(PaymentsEntity)
+    private paymentsRepo: Repository<PaymentsEntity>,
+    @InjectRepository(SubscriptionEntity)
+    private subscriptionsRepo: Repository<SubscriptionEntity>
+  ) {}
 
-  createPayment(userId: string, amount: number): any {
-    if (!(userId in this.moneyStuff)) {
-      throw new RpcException(`${userId} unknown by the PaymentsService!`);
-    }
-    this.moneyStuff[userId].payments.push({
+  async createPayment(userId: string, amount: number): Promise<any> {
+    const payment = this.paymentsRepo.create({ 
+      userId, 
       amount,
-      created_at: Date.now()
+      source: 'stripe'
     });
+    this.paymentsRepo.save(payment);
 
-    return {
-      // @TODO: imagine some form of credit value translation
-      creditValue: Math.floor(amount / 10)
-    };
+    return 'ok';
   }
 
-  pauseSubscription(userId: string) {
-    if (!(userId in this.moneyStuff)) {
-      throw new RpcException(`${userId} unknown by the PaymentsService!`);
-    }
-    this.moneyStuff[userId].subscription_status = 'paused';
+  async pauseSubscription(userId: string) {
+    await this.subscriptionsRepo.save(
+      this.subscriptionsRepo.create({ userId, subscribed: false })
+    );
     return 'paused';
   }
 
-  activateSubscription(userId: string) {
-    if (!(userId in this.moneyStuff)) {
-      throw new RpcException(`${userId} unknown by the PaymentsService!`);
-    }
-    this.moneyStuff[userId].subscription_status = 'active';
+  async activateSubscription(userId: string) {
+    await this.subscriptionsRepo.save(
+      this.subscriptionsRepo.create({ userId, subscribed: true })
+    );
     return 'activated';
   }
 
   getSubscriptionStatus(userId: string) {
-    if (!(userId in this.moneyStuff)) {
-      throw new RpcException(`${userId} unknown by the PaymentsService!`);
-    }
-    return this.moneyStuff[userId].subscription_status;
+    return this.subscriptionsRepo.findOne({
+      select: ['subscribed'],
+      where: { userId },
+      order: { createdAt: 'DESC' }
+    });
   }
-  
 }

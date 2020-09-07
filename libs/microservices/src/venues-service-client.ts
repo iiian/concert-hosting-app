@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { BaseProxyService } from './base-proxy.service';
+import { BaseServiceClient } from './base-service-client';
 
 @Injectable()
-export class VenuesService extends BaseProxyService('Venues') {
+export class VenuesServiceClient extends BaseServiceClient('Venues') {
   getVenues() {
     return this.proxy.send('get-all-venues', []).toPromise();
   }

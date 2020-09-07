@@ -3,7 +3,7 @@ import { AuthController } from './auth.controller';
 import { ConfigModule } from '@nestjs/config';
 import { AuthService } from './auth.service';
 import { JwtModule } from '@nestjs/jwt';
-import { UsersService } from '../users/users.service';
+import { UsersServiceClient } from '../users/users-service-client';
 
 describe('AppController', () => {
   let appController: AuthController;
@@ -12,7 +12,7 @@ describe('AppController', () => {
     const app: TestingModule = await Test.createTestingModule({
       imports: [ConfigModule, JwtModule.register({ secret: 'foo-bar' })],
       controllers: [AuthController],
-      providers: [AuthService, UsersService],
+      providers: [AuthService, UsersServiceClient],
     }).compile();
 
     appController = app.get<AuthController>(AuthController);

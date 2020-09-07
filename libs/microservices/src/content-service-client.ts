@@ -1,8 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { BaseProxyService } from './base-proxy.service';
+import { BaseServiceClient } from './base-service-client';
 
 @Injectable()
-export class ContentService extends BaseProxyService('Content') {
+export class ContentServiceClient extends BaseServiceClient('Content') {
   getAllForUser(userId: string) {
     try {
       return this.proxy

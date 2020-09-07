@@ -9,7 +9,7 @@ import { VenueEntity } from './venue-entity';
 @Module({
   imports: [
     ConfigModule.forRoot(rootConfig),
-    ...getDbOrmImports('venues', VenueEntity)
+    ...getDbOrmImports('venues', [VenueEntity])
   ],
   providers: [VenuesService],
   exports: [VenuesService],

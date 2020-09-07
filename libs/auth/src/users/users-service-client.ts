@@ -2,7 +2,6 @@ import { Injectable, Logger } from '@nestjs/common';
 import {
   ClientProxy,
   Transport,
-  Client,
   ClientProxyFactory,
 } from '@nestjs/microservices';
 import { ConfigService } from '@nestjs/config';
@@ -11,7 +10,7 @@ import { MicroserviceConfig } from '@rr/microservices';
 export type User = any;
 
 @Injectable()
-export class UsersService {
+export class UsersServiceClient {
   private logger = new Logger('UsersService auth');
   private readonly proxy: ClientProxy;
 
@@ -25,10 +24,16 @@ export class UsersService {
 
   async findOne(email: string): Promise<User> {
     const user = await this.proxy
-      .send('find-one', email)
+      .send('find-one-by-email', email)
       .toPromise();
     this.logger.log(user);
     return user;
+  }
+
+  async exists(id: string): Promise<boolean> {
+    return this.proxy
+      .send('exists-by-id', id)
+      .toPromise();
   }
 
   create(user: any): Promise<any> {

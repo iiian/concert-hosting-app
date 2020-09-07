@@ -33,7 +33,15 @@ export const config: RRConfigObject = {
     },
     payments: {
       host: 'localhost',
-      port: 6903
+      port: 6903,
+      database: {
+        type: 'postgres',
+        database: 'postgres',
+        host: 'localhost',
+        port: 7003,
+        username: 'postgres',
+        password: 'test-password'
+      }
     },
     stripe: {
       host: 'localhost',

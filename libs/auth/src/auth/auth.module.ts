@@ -8,9 +8,10 @@ import { LocalStrategy } from './local.strategy';
 import { LocalAuthGuard } from './local-auth.guard';
 import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
-import { UsersService } from '../users/users.service';
+import { UsersServiceClient } from '../users/users-service-client';
 import { UsersModule } from '../users/users.module';
 import { RrMicroservicesModule } from '@rr/microservices';
+import { UserExistsGuard } from './user-exists.guard';
 
 @Module({
   imports: [
@@ -35,13 +36,14 @@ import { RrMicroservicesModule } from '@rr/microservices';
   ],
   providers: [
     AuthService,
-    UsersService,
+    UsersServiceClient,
     JwtStrategy,
     JwtAuthGuard,
     LocalStrategy,
-    LocalAuthGuard
+    LocalAuthGuard,
+    UserExistsGuard
   ],
   controllers: [AuthController],
-  exports: [AuthService, JwtAuthGuard],
+  exports: [UsersModule, AuthService, JwtAuthGuard, UserExistsGuard],
 })
 export class AuthModule {}

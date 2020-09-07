@@ -1,13 +1,13 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { PaymentsService } from './payments.service';
-import { ContentService } from './content.service';
-import { VenuesService } from './venues.service';
-import { CreditService } from './credit.service';
+import { PaymentsServiceClient } from './payments-service-client';
+import { ContentServiceClient } from './content-service-client';
+import { VenuesServiceClient } from './venues-service-client';
+import { CreditServiceClient } from './credit-service-client';
 
 @Module({
   imports: [ConfigModule],
-  providers: [PaymentsService, ContentService, VenuesService, CreditService],
-  exports: [PaymentsService, ContentService, VenuesService, CreditService]
+  providers: [PaymentsServiceClient, ContentServiceClient, VenuesServiceClient, CreditServiceClient],
+  exports: [PaymentsServiceClient, ContentServiceClient, VenuesServiceClient, CreditServiceClient]
 })
 export class RrMicroservicesModule {}
