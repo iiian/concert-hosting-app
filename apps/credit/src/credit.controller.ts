@@ -17,4 +17,9 @@ export class CreditController {
   getCreditsForUser(userId: string) {
     return this.creditService.getBalance(userId);
   }
+
+  @MessagePattern('create')
+  create([userId, baseAmount]: [string, number]) {
+    return this.creditService.create(userId, baseAmount);
+  }
 }

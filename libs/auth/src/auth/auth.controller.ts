@@ -1,11 +1,15 @@
 import { Controller, Post, Request, UseGuards, Param, Logger, Body } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { LocalAuthGuard } from './local-auth.guard';
+import { CreditService } from '@rr/microservices';
 
 @Controller('auth')
 export class AuthController {
   logger = new Logger('AuthController');
-  constructor(private readonly authService: AuthService) {}
+  constructor(
+    private readonly authService: AuthService,
+    private readonly creditsService: CreditService
+  ) {}
 
   @Post('login')
   @UseGuards(LocalAuthGuard)
@@ -15,8 +19,9 @@ export class AuthController {
   }
 
   @Post('signup')
-  signup(@Body() user): Promise<any> {
+  async signup(@Body() user): Promise<any> {
     this.logger.log(`${user.email} is signing up`);
-    return this.authService.signup(user);
+    const newUserId = await this.authService.signup(user);
+    this.creditsService.create(newUserId, 1);
   }
 }

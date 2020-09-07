@@ -1,4 +1,4 @@
-import { CreditModule } from './credit/credit.module';
+import { CreditModule } from './credit.module';
 import { bootstrap } from '@rr/microservices';
 
 bootstrap({
