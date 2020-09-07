@@ -1,97 +1,70 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { RpcException } from '@nestjs/microservices';
+import { InjectRepository } from '@nestjs/typeorm';
+import { ContentEntity } from './content-entity';
+import { Repository } from 'typeorm';
+import { ContentAuthorizationsEntity } from './content-authorizations-entity';
+import { UserContentAuthorizationsEntity } from './user-content-entity';
 
 @Injectable()
 export class ContentService {
   private logger = new Logger('content.content.service');
-  contentAuths: any;
-  contentByVenue: any;
-  content: any;
-  authorizations: any;
-  
-  getContent(userId: string, contentReferenceId: string) {
-    this.logger.log(`getContent(userId=${userId}, contentReferenceId=${contentReferenceId})`);
-    if (!this.contentAuths[String(userId)]?.[String(contentReferenceId)]) {
-      /*@TODO:Error Handling*/
-      throw new RpcException('UserId|ReferenceId combo failed.');
-    }
-    return {
-      uri: this.contentAuths[userId][contentReferenceId]
-    };
+
+  constructor(
+    @InjectRepository(ContentEntity)
+    private contentRepository: Repository<ContentEntity>,
+    @InjectRepository(ContentAuthorizationsEntity)
+    private contentAuthorizationsRepository: Repository<
+      ContentAuthorizationsEntity
+    >,
+    @InjectRepository(UserContentAuthorizationsEntity)
+    private userContentAuthorizations: Repository<
+      UserContentAuthorizationsEntity
+    >,
+  ) {}
+
+  createContent(venueId: string, name: string, uri: string) {
+    return this.contentRepository.save(
+      this.contentRepository.create({
+        venueId,
+        name,
+        uri,
+      }),
+    );
   }
 
-  findAllForVenueId(venueId: string): any[] {
-    return this.content[venueId];
+  getContent(userId: string, contentId: string) {
+    return this.userContentAuthorizations.find({
+      where: { userId, contentId },
+    });
   }
 
-  findById(id: string) {
-    return Object.values<any>(this.content)
-      .flat()
-      .find(content => id === content.id);
+  findAllForVenueId(venueId: string): any {
+    return this.contentRepository.find({ where: { venueId } });
   }
 
-  isContentAuthorizedForUser(userId: string, contentId: string) {
-    const userAuthorizations: string[] = this.authorizations[userId];
-    return userAuthorizations.includes(contentId);
+  async isContentAuthorizedForUser(userId: string, contentId: string) {
+    return Boolean(
+      await this.userContentAuthorizations.findOne({
+        userId,
+        contentId,
+      }),
+    );
   }
 
   getAllForUser(userId: any) {
-    return Object.keys(this.contentAuths[userId])
-      .map(key => this.findById(key));
+    return this.userContentAuthorizations.find({
+      where: { userId },
+    });
   }
 
-  constructor() {
-    this.contentAuths = {
-      ['1']: {
-        ['1234'] : 'https://rr.com/content/9825-3983598-239847', 
-        ['2468']: 'https://rr.com/content/2378-98258739-2483784'
-      }
-    }
-
-    this.contentByVenue = {
-      ['1']: [
-        {
-          id: '1234',
-          name: 'Wylde Stallions (w/ special guest star Rufus)',
-          thumbnail: 'https://homepages.cae.wisc.edu/~ece533/images/pool.png'
-        }, 
-      ],
-      ['2']: [
-        {
-          id: '2468',
-          name: 'The Fall of Troy',
-          thumbnail: 'https://homepages.cae.wisc.edu/~ece533/images/pool.png'
-        }
-      ]
-    }
-  
-    this.content = {
-      ['abcdef1234']: [
-        {
-          id: '1234',
-          name: 'Wylde Stallions (w/ special guest star Rufus)',
-          thumbnail: 'https://homepages.cae.wisc.edu/~ece533/images/pool.png'
-        },
-        {
-          id: '2468',
-          name: 'The Fall of Troy',
-          thumbnail: 'https://homepages.cae.wisc.edu/~ece533/images/pool.png'
-        },
-        {
-          id: 'xyz987',
-          cost: 1,
-          name: 'Big Boi, Live @ The Independent 09/16/20',
-        },
-        {
-          id: 'nth345',
-          cost: 1,
-          name: 'Paul "Roald Dahl" Wall reads James and the Giant Peach',
-        },
-      ],
-    };
-
-    this.authorizations = {
-      ['1']: ['xyz987', 'nth345'],
-    };
+  authorizeUserForContent(userId: string, contentId: string) {
+    return this.contentAuthorizationsRepository.save(
+      this.contentAuthorizationsRepository.create({
+        userId,
+        contentId,
+        type: 'owned',
+      }),
+    );
   }
 }

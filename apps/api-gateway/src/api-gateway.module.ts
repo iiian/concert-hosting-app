@@ -8,12 +8,13 @@ import { SubscriptionController } from './controllers/subscription.gateway.contr
 import { ContentController } from './controllers/content.gateway.controller';
 import { UsersController } from './controllers/users.gateway.controller';
 import { rootConfig } from 'config';
+import { SwaggerModule } from '@nestjs/swagger';
 
 @Module({
   imports: [
     ConfigModule.forRoot(rootConfig),
     RrMicroservicesModule,
-    AuthModule,
+    AuthModule
   ],
   controllers: [
     AuthController,

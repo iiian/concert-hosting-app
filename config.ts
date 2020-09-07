@@ -17,17 +17,25 @@ export const config: RRConfigObject = {
     },
     content: {
       host: 'localhost',
-      port: 6901
+      port: 6901,
+      database: {
+        type: 'postgres',
+        database: 'ianray',
+        host: 'localhost',
+        port: 5432,
+        username: 'ianray',
+        password: 'test-password'
+      }
     },
     credit: {
       host: 'localhost',
       port: 6902,
       database: {
         type: 'postgres',
-        database: 'postgres',
+        database: 'ianray',
         host: 'localhost',
-        port: 7002,
-        username: 'postgres',
+        port: 5432,
+        username: 'ianray',
         password: 'test-password'
       }
     },
@@ -36,10 +44,10 @@ export const config: RRConfigObject = {
       port: 6903,
       database: {
         type: 'postgres',
-        database: 'postgres',
+        database: 'ianray',
         host: 'localhost',
-        port: 7003,
-        username: 'postgres',
+        port: 5432,
+        username: 'ianray',
         password: 'test-password'
       }
     },
@@ -52,10 +60,10 @@ export const config: RRConfigObject = {
       port: 6905,
       database: {
         type: 'postgres',
-        database: 'postgres',
+        database: 'ianray',
         host: 'localhost',
-        port: 7001,
-        username: 'iiian',
+        port: 5432,
+        username: 'ianray',
         password: 'test-password'
       }
     },
@@ -64,10 +72,10 @@ export const config: RRConfigObject = {
       port: 6906,
       database: {
         type: 'postgres',
-        database: 'postgres',
+        database: 'ianray',
         host: 'localhost',
-        port: 7000,
-        username: 'postgres',
+        port: 5432,
+        username: 'ianray',
         password: 'test-password'
       }
     },
