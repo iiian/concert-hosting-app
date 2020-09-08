@@ -8,7 +8,9 @@ export function getDbOrmImports(name: string, types: any[]) {
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => {
-        const databaseConfig: MicroserviceDatabaseConfig = configService.get(`services.${name}.database`);
+        const databaseConfig: MicroserviceDatabaseConfig = configService.get(
+          `services.${name}.database`,
+        );
         return {
           type: databaseConfig.type,
           host: databaseConfig.host,
@@ -17,10 +19,10 @@ export function getDbOrmImports(name: string, types: any[]) {
           password: databaseConfig.password,
           database: databaseConfig.database,
           entities: types,
-          synchronize: true
+          synchronize: true,
         };
-      }
+      },
     }),
-    TypeOrmModule.forFeature(types)
-  ]
+    TypeOrmModule.forFeature(types),
+  ];
 }

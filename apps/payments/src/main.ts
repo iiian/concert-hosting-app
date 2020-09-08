@@ -1,7 +1,7 @@
 import { PaymentsModule } from './payments.module';
-import { bootstrap } from '@rr/microservices';
+import { bootstrapRPCMicroservice } from '@rr/microservices';
 
-bootstrap({
+bootstrapRPCMicroservice({
   name: 'payments',
-  module: PaymentsModule
+  module: PaymentsModule,
 });

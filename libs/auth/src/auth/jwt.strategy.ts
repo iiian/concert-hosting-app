@@ -1,6 +1,12 @@
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { PassportStrategy } from '@nestjs/passport';
-import { Injectable, Logger, UnauthorizedException, HttpCode, HttpStatus } from '@nestjs/common';
+import {
+  Injectable,
+  Logger,
+  UnauthorizedException,
+  HttpCode,
+  HttpStatus,
+} from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
 @Injectable()
@@ -17,8 +23,12 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 
   async validate(req: any, payload: any) {
     if (req.params.uid !== undefined && req.params.uid !== payload.sub) {
-      this.logger.log(`authz failure: ${payload.email} is not authorized to take actions against user ${req.params.uid}`);
-      throw new UnauthorizedException(`${payload.email} is not authorized to take actions against user ${req.params.uid}`);
+      this.logger.log(
+        `authz failure: ${payload.email} is not authorized to take actions against user ${req.params.uid}`,
+      );
+      throw new UnauthorizedException(
+        `${payload.email} is not authorized to take actions against user ${req.params.uid}`,
+      );
     }
 
     return { userId: payload.sub, email: payload.email };

@@ -9,7 +9,7 @@ import { getDbOrmImports } from '@rr/microservices';
 @Module({
   imports: [
     ConfigModule.forRoot(rootConfig),
-    ...getDbOrmImports('users', [UserEntity])
+    ...getDbOrmImports('users', [UserEntity]),
   ],
   providers: [UsersService],
   exports: [UsersService],

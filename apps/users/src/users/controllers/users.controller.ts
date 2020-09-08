@@ -18,7 +18,7 @@ export class UsersController {
   }
 
   @MessagePattern('sign-up')
-  signUp(user: object): Promise<string> {
+  signUp(user): Promise<string> {
     return this.userService.save(user);
   }
 }

@@ -14,5 +14,5 @@ describe('CreditController', () => {
     appController = app.get<CreditController>(CreditController);
   });
 
-  describe('/*@TODO*/', () => it('run', () => {}))
+  describe('/*@TODO*/', () => it('run', () => {}));
 });

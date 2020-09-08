@@ -1,7 +1,10 @@
 import { StripeModule } from './stripe.module';
-import { bootstrap } from '@rr/microservices';
+import { bootstrapHttpService } from '@rr/microservices';
 
-bootstrap({
+export const NAME = 'APIGatewayService';
+
+bootstrapHttpService({
   name: 'stripe',
-  module: StripeModule
+  module: StripeModule,
+  versionNumber: 1,
 });

@@ -17,28 +17,21 @@ export class UsersServiceClient {
   constructor(configService: ConfigService) {
     this.proxy = ClientProxyFactory.create({
       transport: Transport.TCP,
-      options: configService.get<MicroserviceConfig>('services.users')
+      options: configService.get<MicroserviceConfig>('services.users'),
     });
-
   }
 
   async findOne(email: string): Promise<User> {
-    const user = await this.proxy
-      .send('find-one-by-email', email)
-      .toPromise();
+    const user = await this.proxy.send('find-one-by-email', email).toPromise();
     this.logger.log(user);
     return user;
   }
 
   async exists(id: string): Promise<boolean> {
-    return this.proxy
-      .send('exists-by-id', id)
-      .toPromise();
+    return this.proxy.send('exists-by-id', id).toPromise();
   }
 
   create(user: any): Promise<any> {
-    return this.proxy
-      .send('sign-up', user)
-      .toPromise();
+    return this.proxy.send('sign-up', user).toPromise();
   }
 }

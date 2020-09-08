@@ -4,7 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Injectable, Logger, Inject } from '@nestjs/common';
 import { RpcException } from '@nestjs/microservices';
 import { UserEntity } from '../models/user-entity';
-import {} from '../../../../../config'
+import {} from '../../../../../config';
 import * as bcrypt from 'bcrypt';
 
 @Injectable()
@@ -13,18 +13,16 @@ export class UsersService {
   private readonly users: UserEntity[];
   private saltRounds: number;
   constructor(
-    configService: ConfigService, 
+    configService: ConfigService,
     @InjectRepository(UserEntity)
-    private userRepo: Repository<UserEntity>
+    private userRepo: Repository<UserEntity>,
   ) {
     this.saltRounds = Number(configService.get('bcrypt.saltRounds')) || 10;
   }
 
-  async save({ password, ...user}: any): Promise<string> {
+  async save({ password, ...user }: any): Promise<string> {
     const userEntity = new UserEntity();
-    Object
-    .entries(user)
-    .forEach(([key, value]) => userEntity[key] = value);
+    Object.entries(user).forEach(([key, value]) => (userEntity[key] = value));
     userEntity.password = bcrypt.hashSync(password, 10);
     this.logger.log(userEntity.password);
     await this.userRepo.save(userEntity);

@@ -7,12 +7,10 @@ import { InjectRepository } from '@nestjs/typeorm';
 export class VenuesService {
   constructor(
     @InjectRepository(VenueEntity)
-    private venuesRepo: Repository<VenueEntity>
+    private venuesRepo: Repository<VenueEntity>,
   ) {}
 
-  async save(venue: any) {
-    
-  }
+  async save(venue: any) {}
 
   findOne(id: string): Promise<VenueEntity> {
     return this.venuesRepo.findOne(id);
@@ -20,7 +18,7 @@ export class VenuesService {
 
   findAll(): Promise<VenueEntity[]> {
     return this.venuesRepo.find({
-      select: ['id', 'name', 'state']
+      select: ['id', 'name', 'state'],
     });
   }
 }

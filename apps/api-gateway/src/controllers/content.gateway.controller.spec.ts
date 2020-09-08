@@ -10,7 +10,7 @@ describe('ContentController', () => {
     const module: TestingModule = await Test.createTestingModule({
       imports: [ConfigModule],
       controllers: [ContentController],
-      providers: [ContentService]
+      providers: [ContentService],
     }).compile();
 
     controller = module.get<ContentController>(ContentController);

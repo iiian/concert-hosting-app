@@ -6,6 +6,6 @@ import { ConfigModule } from '@nestjs/config';
 @Module({
   imports: [ConfigModule, ClientsModule],
   providers: [UsersServiceClient],
-  exports: [UsersServiceClient]
+  exports: [UsersServiceClient],
 })
 export class UsersModule {}

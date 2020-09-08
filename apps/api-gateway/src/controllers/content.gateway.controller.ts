@@ -38,13 +38,10 @@ export class ContentController {
   ) {
     return this.contentService.getAllForUser(userId);
   }
-  
+
   @Get(`:${UID}/content/:${CID}`)
   @UseGuards(JwtAuthGuard)
-  getContent(
-    @Param(UID) userId: string,
-    @Param(CID) contentId: string,
-  ) {
+  getContent(@Param(UID) userId: string, @Param(CID) contentId: string) {
     return this.contentService.getContent(userId, contentId);
   }
 }

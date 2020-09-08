@@ -8,7 +8,7 @@ import { getCreditsForPayment } from './getCreditsForPayment';
 export class PaymentsController {
   constructor(
     private readonly paymentsService: PaymentsService,
-    private readonly creditServiceClient: CreditServiceClient
+    private readonly creditServiceClient: CreditServiceClient,
   ) {}
 
   @MessagePattern('activate-subscription')
@@ -27,7 +27,7 @@ export class PaymentsController {
     await this.creditServiceClient.transactCredits(
       userId,
       TransactionType.GRANT,
-      getCreditsForPayment(amount)
+      getCreditsForPayment(amount),
     );
     return 'ok';
   }

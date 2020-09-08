@@ -1,4 +1,9 @@
-import { CanActivate, ExecutionContext, Injectable, HttpException } from '@nestjs/common';
+import {
+  CanActivate,
+  ExecutionContext,
+  Injectable,
+  HttpException,
+} from '@nestjs/common';
 import { Request } from 'express';
 import { UsersServiceClient } from '../users/users-service-client';
 
@@ -12,7 +17,10 @@ export class UserExistsGuard implements CanActivate {
     try {
       return await this.userServiceClient.exists(userId);
     } catch (error) {
-      throw new HttpException({ ...error, message: `User ${userId} does not exist` }, 404);
+      throw new HttpException(
+        { ...error, message: `User ${userId} does not exist` },
+        404,
+      );
     }
   }
 }

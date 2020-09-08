@@ -10,7 +10,7 @@ describe('AppController', () => {
 
   beforeEach(async () => {
     const app: TestingModule = await Test.createTestingModule({
-      imports: [ConfigModule, JwtModule.register({ secret: 'foo-bar'})],
+      imports: [ConfigModule, JwtModule.register({ secret: 'foo-bar' })],
       controllers: [UsersController],
       providers: [UsersServiceClient, AuthService],
     }).compile();
