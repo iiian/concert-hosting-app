@@ -18,4 +18,7 @@ export class SubscriptionEntity {
 
   @CreateDateColumn({ name: 'created_at', nullable: false })
   createdAt: string;
+
+  @Column({ name: 'external_id', nullable: true })
+  externalId: string;
 }

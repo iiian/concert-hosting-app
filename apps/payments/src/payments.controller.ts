@@ -1,4 +1,4 @@
-import { Controller } from '@nestjs/common';
+import { Controller, Logger } from '@nestjs/common';
 import { PaymentsService } from './payments.service';
 import { CreditServiceClient, TransactionType } from '@rr/microservices';
 import { MessagePattern } from '@nestjs/microservices';
@@ -33,7 +33,12 @@ export class PaymentsController {
   }
 
   @MessagePattern('get-subscription-status')
-  async getSubscriptionStatus(userId: string) {
+  getSubscriptionStatus(userId: string) {
     return this.paymentsService.getSubscriptionStatus(userId);
+  }
+
+  @MessagePattern('attach-external-subscription-id')
+  attachExternalSubscriptionId([userId, externalSubscriptionId]: [string, string]) {
+    return this.paymentsService.attachExternalSubscriptionId(userId, externalSubscriptionId);
   }
 }

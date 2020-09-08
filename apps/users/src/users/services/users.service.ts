@@ -40,4 +40,10 @@ export class UsersService {
   async existsById(id: string): Promise<boolean> {
     return Boolean(await this.userRepo.findOne({ where: { id } }));
   }
+
+  async assignExternalId(userId: string, externalId: string) {
+    const user = await this.userRepo.findOne(userId);
+    user.externalId = externalId;
+    return this.userRepo.save(user);
+  }
 }

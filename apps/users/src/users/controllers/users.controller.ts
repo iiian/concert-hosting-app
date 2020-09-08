@@ -21,4 +21,9 @@ export class UsersController {
   signUp(user): Promise<string> {
     return this.userService.save(user);
   }
+
+  @MessagePattern('assign-external-id')
+  assignExternalId([userId, externalId]: [string, string]) {
+    return this.userService.assignExternalId(userId, externalId);
+  }
 }

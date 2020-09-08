@@ -47,4 +47,10 @@ export class PaymentsService {
       order: { createdAt: 'DESC' },
     });
   }
+
+  async attachExternalSubscriptionId(userId: string, externalSubscriptionId: string) {
+    const subscription = await this.subscriptionsRepo.findOne({ where: { userId }});
+    subscription.externalId = externalSubscriptionId;
+    return this.subscriptionsRepo.save(subscription);
+  }
 }

@@ -34,4 +34,8 @@ export class UsersServiceClient {
   create(user: any): Promise<any> {
     return this.proxy.send('sign-up', user).toPromise();
   }
+
+  attachExternalId(userId: string, externalId: string) {
+    return this.proxy.send('assign-external-id', [userId, externalId]).toPromise();
+  }
 }

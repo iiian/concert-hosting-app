@@ -16,4 +16,7 @@ export class UserEntity {
     nullable: true,
   })
   password: string;
+
+  @Column({ name: 'external_id', nullable: true })
+  externalId: string;
 }

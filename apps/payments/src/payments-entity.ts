@@ -22,4 +22,7 @@ export class PaymentsEntity {
   // measured in USD, if possible
   @Column({ nullable: false })
   amount: number;
+
+  @Column({ name: 'external_id', nullable: true })
+  externalId: string;
 }

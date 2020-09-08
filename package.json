@@ -9,7 +9,7 @@
     "prebuild": "rimraf dist",
     "build": "nest build",
     "format": "prettier --write \"apps/**/*.ts\" \"libs/**/*.ts\"",
-    "start": "concurrently 'nest start api-gateway --watch' 'nest start content --watch' 'nest start credit --watch' 'nest start payments --watch' 'nest start stripe --watch' 'nest start users --watch' 'nest start venues --watch'",
+    "start": "concurrently --raw 'nest start api-gateway --watch' 'nest start content --watch' 'nest start credit --watch' 'nest start payments --watch' 'nest start stripe --watch' 'nest start users --watch' 'nest start venues --watch'",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
@@ -18,7 +18,8 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./apps/reflective/test/jest-e2e.json"
+    "test:e2e": "jest --config ./apps/reflective/test/jest-e2e.json",
+    "stripe": "concurrently --raw -c red,green,blue 'stripe listen --forward-to localhost:6904/api/v1/stripe/webhooks/invoice/paid --events payment_intent.succeeded' 'stripe listen --forward-to localhost:6904/api/v1/stripe/webhooks/customer/created --events customer.created' 'stripe listen --forward-to localhost:6904/api/v1/stripe/webhooks/customer/subscription/created --events customer.subscription.created'"
   },
   "dependencies": {
     "@nestjs/common": "^7.0.0",
