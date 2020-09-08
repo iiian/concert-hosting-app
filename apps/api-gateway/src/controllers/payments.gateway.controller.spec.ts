@@ -10,7 +10,7 @@ describe('PaymentsController', () => {
     const module: TestingModule = await Test.createTestingModule({
       imports: [ConfigModule],
       controllers: [PaymentsController],
-      providers: [PaymentsService]
+      providers: [PaymentsService],
     }).compile();
 
     controller = module.get<PaymentsController>(PaymentsController);

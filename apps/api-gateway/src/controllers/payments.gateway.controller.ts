@@ -1,4 +1,11 @@
-import { Controller, Post, Body, Param, HttpException, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  Param,
+  HttpException,
+  UseGuards,
+} from '@nestjs/common';
 import { USERS_ROUTE, UID } from '../../route.constants';
 import { PaymentsServiceClient } from '@rr/microservices';
 import { UsersServiceClient } from '@rr/auth/users/users-service-client';
@@ -12,7 +19,10 @@ export class PaymentsController {
   @Post()
   @UseGuards(UserExistsGuard)
   // @TODO add Guard for being called by someone who has permissions to call it?
-  async onPaymentOccured(@Param(UID) userId: string, @Body('amount') amount: number) {
-      return this.paymentsService.createPayment(userId, amount);
+  async onPaymentOccured(
+    @Param(UID) userId: string,
+    @Body('amount') amount: number,
+  ) {
+    return this.paymentsService.createPayment(userId, amount);
   }
 }

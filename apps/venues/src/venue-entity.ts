@@ -21,5 +21,5 @@ export class VenueEntity {
   address2: string;
 
   @Column({ nullable: false })
-  name: string
+  name: string;
 }

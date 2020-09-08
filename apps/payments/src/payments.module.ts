@@ -11,7 +11,7 @@ import { SubscriptionEntity } from './subscription-entity';
   imports: [
     ConfigModule.forRoot(rootConfig),
     RrMicroservicesModule,
-    ...getDbOrmImports('payments', [PaymentsEntity, SubscriptionEntity])
+    ...getDbOrmImports('payments', [PaymentsEntity, SubscriptionEntity]),
   ],
   controllers: [PaymentsController],
   providers: [PaymentsService],

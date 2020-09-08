@@ -41,7 +41,7 @@ import { UserExistsGuard } from './user-exists.guard';
     JwtAuthGuard,
     LocalStrategy,
     LocalAuthGuard,
-    UserExistsGuard
+    UserExistsGuard,
   ],
   controllers: [AuthController],
   exports: [UsersModule, AuthService, JwtAuthGuard, UserExistsGuard],

@@ -1,8 +1,7 @@
-
 import { UsersModule } from './users/users.module';
-import { bootstrap } from '@rr/microservices';
+import { bootstrapRPCMicroservice } from '@rr/microservices';
 
-bootstrap({
+bootstrapRPCMicroservice({
   name: 'users',
-  module: UsersModule
+  module: UsersModule,
 });

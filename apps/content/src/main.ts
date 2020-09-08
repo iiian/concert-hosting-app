@@ -1,7 +1,7 @@
 import { ContentModule } from './content.module';
-import { bootstrap } from '@rr/microservices';
+import { bootstrapRPCMicroservice } from '@rr/microservices';
 
-bootstrap({
+bootstrapRPCMicroservice({
   name: 'content',
   module: ContentModule,
 });

@@ -53,7 +53,15 @@ export const config: RRConfigObject = {
     },
     stripe: {
       host: 'localhost',
-      port: 6904
+      port: 6904,
+      database: {
+        type: 'postgres',
+        database: 'ianray',
+        host: 'localhost',
+        port: 5432,
+        username: 'ianray',
+        password: 'test-password'
+      }
     },
     users: {
       host: 'localhost',

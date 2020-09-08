@@ -1,4 +1,12 @@
-import { Controller, Post, Request, UseGuards, Param, Logger, Body } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Request,
+  UseGuards,
+  Param,
+  Logger,
+  Body,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { LocalAuthGuard } from './local-auth.guard';
 import { CreditServiceClient, PaymentsServiceClient } from '@rr/microservices';
@@ -9,7 +17,7 @@ export class AuthController {
   constructor(
     private readonly authService: AuthService,
     private readonly creditsServiceClient: CreditServiceClient,
-    private readonly paymentsServiceClient: PaymentsServiceClient
+    private readonly paymentsServiceClient: PaymentsServiceClient,
   ) {}
 
   @Post('login')

@@ -9,7 +9,7 @@ import { CreditEntity } from './credit-entity';
 @Module({
   imports: [
     ConfigModule.forRoot(rootConfig),
-    ...getDbOrmImports('credit', [CreditEntity])
+    ...getDbOrmImports('credit', [CreditEntity]),
   ],
   controllers: [CreditController],
   providers: [CreditService],

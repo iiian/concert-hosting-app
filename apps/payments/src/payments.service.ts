@@ -12,14 +12,14 @@ export class PaymentsService {
     @InjectRepository(PaymentsEntity)
     private paymentsRepo: Repository<PaymentsEntity>,
     @InjectRepository(SubscriptionEntity)
-    private subscriptionsRepo: Repository<SubscriptionEntity>
+    private subscriptionsRepo: Repository<SubscriptionEntity>,
   ) {}
 
   async createPayment(userId: string, amount: number): Promise<any> {
-    const payment = this.paymentsRepo.create({ 
-      userId, 
+    const payment = this.paymentsRepo.create({
+      userId,
       amount,
-      source: 'stripe'
+      source: 'stripe',
     });
     this.paymentsRepo.save(payment);
 
@@ -28,14 +28,14 @@ export class PaymentsService {
 
   async pauseSubscription(userId: string) {
     await this.subscriptionsRepo.save(
-      this.subscriptionsRepo.create({ userId, subscribed: false })
+      this.subscriptionsRepo.create({ userId, subscribed: false }),
     );
     return 'paused';
   }
 
   async activateSubscription(userId: string) {
     await this.subscriptionsRepo.save(
-      this.subscriptionsRepo.create({ userId, subscribed: true })
+      this.subscriptionsRepo.create({ userId, subscribed: true }),
     );
     return 'activated';
   }
@@ -44,7 +44,13 @@ export class PaymentsService {
     return this.subscriptionsRepo.findOne({
       select: ['subscribed'],
       where: { userId },
-      order: { createdAt: 'DESC' }
+      order: { createdAt: 'DESC' },
     });
+  }
+
+  async attachExternalSubscriptionId(userId: string, externalSubscriptionId: string) {
+    const subscription = await this.subscriptionsRepo.findOne({ where: { userId }});
+    subscription.externalId = externalSubscriptionId;
+    return this.subscriptionsRepo.save(subscription);
   }
 }

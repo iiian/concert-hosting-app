@@ -8,7 +8,7 @@ import { Repository } from 'typeorm';
 export class CreditService {
   constructor(
     @InjectRepository(CreditEntity)
-    private creditRepository: Repository<CreditEntity>
+    private creditRepository: Repository<CreditEntity>,
   ) {}
 
   async transact(userId: string, creditAmount: number) {
@@ -17,7 +17,7 @@ export class CreditService {
       throw new RpcException(`User ${userId} does not exist`);
     }
     if (creditReport.credits - creditAmount < 0) {
-      throw new RpcException(`User ${userId} does not have enough credit`)
+      throw new RpcException(`User ${userId} does not have enough credit`);
     }
     creditReport.credits -= creditAmount;
     this.creditRepository.save(creditReport);
@@ -31,7 +31,7 @@ export class CreditService {
     }
     return { credits: creditReport.credits };
   }
-  
+
   create(userId: string, amount: number) {
     const creditRecord = this.creditRepository.create();
     creditRecord.userId = userId;

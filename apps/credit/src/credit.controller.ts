@@ -10,7 +10,7 @@ export class CreditController {
 
   @MessagePattern('transact')
   transact([userId, amount]: [string, number]) {
-    return this.creditService.transact(userId, amount)
+    return this.creditService.transact(userId, amount);
   }
 
   @MessagePattern('get')

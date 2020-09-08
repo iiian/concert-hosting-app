@@ -1,7 +1,7 @@
 import { VenuesModule } from './venues.module';
-import { bootstrap } from '@rr/microservices';
+import { bootstrapRPCMicroservice } from '@rr/microservices';
 
-bootstrap({
+bootstrapRPCMicroservice({
   name: 'venues',
-  module: VenuesModule
+  module: VenuesModule,
 });

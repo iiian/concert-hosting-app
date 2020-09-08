@@ -6,7 +6,7 @@ import { CreditServiceClient, TransactionType } from '@rr/microservices';
 @Controller(USERS_ROUTE)
 export class UsersController {
   constructor(private creditService: CreditServiceClient) {}
-  
+
   @Get(`/:${UID}/credits`)
   @UseGuards(JwtAuthGuard)
   getCredits(@Param(UID) userId: string) {
@@ -17,6 +17,10 @@ export class UsersController {
   @Post(`/:${UID}/credits`)
   @UseGuards(JwtAuthGuard)
   transactCredits(@Param(UID) userId: string, @Body('amount') amount: number) {
-    return this.creditService.transactCredits(userId, TransactionType.SPEND, amount);
+    return this.creditService.transactCredits(
+      userId,
+      TransactionType.SPEND,
+      amount,
+    );
   }
 }

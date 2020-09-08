@@ -1,4 +1,9 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+} from 'typeorm';
 
 @Entity('payments')
 export class PaymentsEntity {
@@ -17,4 +22,7 @@ export class PaymentsEntity {
   // measured in USD, if possible
   @Column({ nullable: false })
   amount: number;
+
+  @Column({ name: 'external_id', nullable: true })
+  externalId: string;
 }
