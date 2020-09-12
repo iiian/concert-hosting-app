@@ -9,7 +9,7 @@
     "prebuild": "rimraf dist",
     "build": "nest build",
     "format": "prettier --write \"apps/**/*.ts\" \"libs/**/*.ts\"",
-    "start": "concurrently --raw 'nest start api-gateway --watch' 'nest start content --watch' 'nest start credit --watch' 'nest start payments --watch' 'nest start stripe --watch' 'nest start users --watch' 'nest start venues --watch'",
+    "start": "concurrently --raw \"nest start api-gateway --watch\" \"nest start content --watch\" \"nest start credit --watch\" \"nest start payments --watch\" \"nest start stripe --watch\" \"nest start users --watch\" \"nest start venues --watch\"",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
